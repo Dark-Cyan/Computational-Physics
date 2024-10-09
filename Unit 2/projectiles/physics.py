@@ -15,7 +15,6 @@ speed = 30
 angle = 45
 
 baseball=Ball(0.145,0.037,Vec(0,0,0),speed,angle)
-print(baseball.vec)
 
 run = True
 
@@ -25,10 +24,11 @@ def weight(a):
 def drag(a):
     return -0.5*a.C*a.A*p*abs(a.vec)*a.vec
 
-def move(a):
+def netforce(a):
+    return weight(a)+drag(a)
 
-    force=weight(a)+drag(a)
-    acc=force/a.m
+def move(a):
+    acc=netforce(a)/a.m
     a.vec+=acc*dt
     a.pos+=a.vec*dt
     checker(a)
@@ -38,6 +38,3 @@ def checker(a):
     if a.pos.y<0: #float and it's checking to see if you've hit the ground
         print(a.pos.x)
         run = False
-
-print(weight(baseball))
-print(drag(baseball))
