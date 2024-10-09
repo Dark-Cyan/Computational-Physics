@@ -1,4 +1,4 @@
 import physics
 
-while physics.run==True:
+while physics.run:
     physics.move(physics.baseball)
