@@ -4,7 +4,7 @@ import pygame as pg
 import physics as phys
 
 
-scale=10
+scale=10 #how many pixels are in a meter
 
 def setup(w,h):
 
@@ -20,7 +20,7 @@ def background():
     pg.draw.rect(screen, (180, 255, 180), (0, 500, 800, 100))
 
 def render(a):
-    background()
+    #background()
     pg.draw.circle(screen,(0,0,0),(scale*a.pos.x,500-1*scale*a.pos.y),5)
     pg.display.flip()
 
