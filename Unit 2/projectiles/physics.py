@@ -6,6 +6,7 @@ from stuff import*
 
 g=Vec(0,-9.8,0) #gracity N/kg
 p=1.2 #air density
+s = 4 * 10 ** -3
 dt=0.001
 t=0
 
@@ -13,11 +14,14 @@ maxHeight = 0
 
 #launch parameters
 
-speed = 20
-angle = 45
+speed = 60
+angle = 20
 height = 0
+spin = -40
 
-baseball=Ball(4,0.10,Vec(0,height,0),speed,angle)
+baseball=Ball(0.5,0.08,Vec(0,height,0),speed,angle,spin)
+
+wind = Vec(12,0,0)
 
 run = True
 go = False
@@ -25,11 +29,17 @@ go = False
 def weight(a):
     return a.m*g
 
+def airpseed(a):
+    return a.vec - wind
+
 def drag(a):
-    return -0.5*a.C*a.A*p*abs(a.vec)*a.vec
+    return -0.5*a.C*a.A*p*abs(airpseed(a))*airpseed(a)
 
 def netforce(a):
-    return weight(a)+drag(a)
+    return weight(a)+drag(a)+lift(a)
+
+def lift(a):
+    return s * (a.w.cross(airpseed(a)))
 
 def move(a,reps):
     global t

@@ -10,8 +10,4 @@ while physics.run:
     gx.render(physics.baseball)
     physics.move(physics.baseball,20)
 
-    for i in pygame.event.get():
-        if i.type==pygame.QUIT:
-            run=False
-
 gx.pg.quit()
