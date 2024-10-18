@@ -21,6 +21,7 @@ def background():
 
 def render(a):
     #background()
+    screen=pg.display.set_mode((a.pos.x+100,a.maxHeight))
     pg.draw.circle(screen,(0,0,0),(scale*a.pos.x,500-1*scale*a.pos.y),5)
     pg.display.flip()
 

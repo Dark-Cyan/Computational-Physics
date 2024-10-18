@@ -21,7 +21,7 @@ spin = -40
 
 baseball=Ball(0.5,0.08,Vec(0,height,0),speed,angle,spin)
 
-wind = Vec(12,0,0)
+wind = Vec(0,0,0)
 
 run = True
 go = False
