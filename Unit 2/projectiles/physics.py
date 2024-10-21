@@ -21,7 +21,7 @@ spin = -40
 
 baseball=Ball(0.5,0.08,Vec(0,height,0),speed,angle,spin)
 
-wind = Vec(0,0,0)
+wind = Vec(-12,0,0)
 
 run = True
 go = False
@@ -50,18 +50,20 @@ def move(a,reps):
             a.pos+=a.vec*dt
             t+=dt
             checker(a)
+            if run == False:
+                break
 
 def checker(a):
     global run
     global maxHeight
 
-    if abs(a.vec.y)<0.01:
-        print(f'Max Height = {round(a.pos.y,2)} m')
-    #if a.pos.y > maxHeight:
-    #    maxHeight = a.pos.y
+    #if abs(a.vec.y)<0.01:
+    #    print(f'Max Height = {round(a.pos.y,2)} m')
+    if a.pos.y > maxHeight:
+        maxHeight = a.pos.y
     if a.pos.y<0: #float and it's checking to see if you've hit the ground
         print(f'Time = {t} s')
         print(f'Range = {a.pos.x} m')
         print(f'Final Speed = {a.vec.mag()} m/s')
-        #print(f'Max Height = {maxHeight} m')
+        print(f'Max Height = {maxHeight} m')
         run = False
