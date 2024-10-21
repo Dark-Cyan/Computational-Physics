@@ -5,23 +5,32 @@ from stuff import*
 #environmentals
 
 g=Vec(0,-9.8,0) #gracity N/kg
-p=1.2 #air density
+p=0.97 #air density
 s = 4 * 10 ** -3
 dt=0.001
 t=0
 
 maxHeight = 0
 
+#ball parameters
+
+mass = 4.2
+radius = 0.125
+
+#pumpkin chunkin
+
+barrelLength = 30.48
+
 #launch parameters
 
-speed = 60
-angle = 20
-height = 0
-spin = -40
+speed = 330
+angle = 25.58
+height = barrelLength * math.sin(math.radians(angle)) #Pumpkin Chunkin
+spin = 0
 
-baseball=Ball(0.5,0.08,Vec(0,height,0),speed,angle,spin)
+baseball=Ball(mass,radius,Vec(0,height,0),speed,angle,spin)
 
-wind = Vec(-12,0,0)
+wind = Vec(-12,1,0)
 
 run = True
 go = False

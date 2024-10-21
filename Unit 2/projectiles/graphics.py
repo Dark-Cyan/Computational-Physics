@@ -4,7 +4,7 @@ import pygame as pg
 import physics as phys
 
 
-scale=5 #how many pixels are in a meter
+scale=0.3 #how many pixels are in a meter
 
 def setup(w,h):
 
