@@ -4,33 +4,50 @@ from stuff import*
 
 #environmentals
 
-g=Vec(0,-9.8,0) #gracity N/kg
-p=0.97 #air density
+#g=Vec(0,-9.8,0) #gracity N/kg
+g=Vec(0,-1.62,0)
+
+p=0 #air density
 s = 4 * 10 ** -3
 dt=0.001
 t=0
 
 maxHeight = 0
+maxRange = 0
 
 #ball parameters
 
-mass = 4.2
-radius = 0.125
+mass = 0.045
+radius = 0.021335
 
 #pumpkin chunkin
 
-barrelLength = 30.48
+#barrelLength = 30.48
+
+#brute forcing part 1
+
+#startAngle = 50
+#endAngle = 90
+#da = 10
 
 #launch parameters
 
-speed = 330
-angle = 25.58
-height = barrelLength * math.sin(math.radians(angle)) #Pumpkin Chunkin
+angle = 30
+speed = 40/math.sin(math.radians(angle/3+35)) #Lunar Golf
+height = 0 #barrelLength * math.sin(math.radians(angle)) #Pumpkin Chunkin
 spin = 0
+
+#brute forcing part 2
+
+#balls = []
+#for i in range(startAngle,endAngle,da):
+    #baseball=Ball(mass,radius,Vec(0,height,0),speed,i,spin)
+    #balls.append(baseball)
+
 
 baseball=Ball(mass,radius,Vec(0,height,0),speed,angle,spin)
 
-wind = Vec(-12,1,0)
+wind = Vec(15,1,0)
 
 run = True
 go = False
@@ -73,6 +90,7 @@ def checker(a):
     if a.pos.y<0: #float and it's checking to see if you've hit the ground
         print(f'Time = {t} s')
         print(f'Range = {a.pos.x} m')
+        #print(f'Range = {a.pos.x * 1.09361} yd')
         print(f'Final Speed = {a.vec.mag()} m/s')
         print(f'Max Height = {maxHeight} m')
         run = False

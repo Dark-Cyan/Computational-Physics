@@ -6,7 +6,13 @@ gx.background()
 while physics.run:
 
     gx.check_interactions()
-    gx.frameRate(42)  
+    gx.frameRate(500)
+    
+    #brute forcing main
+    #for i in physics.balls:
+        #gx.render(i)
+        #physics.move(i,20)
+
     gx.render(physics.baseball)
     physics.move(physics.baseball,20)
 
