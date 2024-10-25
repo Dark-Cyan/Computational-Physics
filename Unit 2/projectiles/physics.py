@@ -4,11 +4,11 @@ from stuff import*
 
 #environmentals
 
-#g=Vec(0,-9.8,0) #gracity N/kg
-g=Vec(0,-1.62,0)
+g=Vec(0,-9.8,0) #gravity N/kg
+#g=Vec(0,-1.62,0)
 
-p=0 #air density
-s = 4 * 10 ** -3
+p=1.2 #air density
+s = 3.5 * 10 ** -5
 dt=0.001
 t=0
 
@@ -32,10 +32,10 @@ radius = 0.021335
 
 #launch parameters
 
-angle = 30
-speed = 40/math.sin(math.radians(angle/3+35)) #Lunar Golf
+angle = 12
+spin = -240 #negative for backspin positive for topspin
+speed = 77 #20-abs(spin) #Basketball off the Gordon Dam#40/math.sin(math.radians(angle/3+35)) #Lunar Golf
 height = 0 #barrelLength * math.sin(math.radians(angle)) #Pumpkin Chunkin
-spin = 0
 
 #brute forcing part 2
 
@@ -47,7 +47,7 @@ spin = 0
 
 baseball=Ball(mass,radius,Vec(0,height,0),speed,angle,spin)
 
-wind = Vec(15,1,0)
+wind = Vec(0,0,-12)
 
 run = True
 go = False
