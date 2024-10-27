@@ -13,12 +13,13 @@ dt=0.001
 t=0
 
 maxHeight = 0
+maxHeightTime = 0
 maxRange = 0
 
 #ball parameters
 
-mass = 0.045
-radius = 0.021335
+mass = 350
+radius = 0.4
 
 #pumpkin chunkin
 
@@ -32,9 +33,9 @@ radius = 0.021335
 
 #launch parameters
 
-angle = 12
-spin = -240 #negative for backspin positive for topspin
-speed = 77 #20-abs(spin) #Basketball off the Gordon Dam#40/math.sin(math.radians(angle/3+35)) #Lunar Golf
+angle = 90
+spin = 0 #negative for backspin positive for topspin
+speed = 2339.2719237 #20-abs(spin) #Basketball off the Gordon Dam#40/math.sin(math.radians(angle/3+35)) #Lunar Golf
 height = 0 #barrelLength * math.sin(math.radians(angle)) #Pumpkin Chunkin
 
 #brute forcing part 2
@@ -47,7 +48,7 @@ height = 0 #barrelLength * math.sin(math.radians(angle)) #Pumpkin Chunkin
 
 baseball=Ball(mass,radius,Vec(0,height,0),speed,angle,spin)
 
-wind = Vec(0,0,-12)
+wind = Vec(0,0,0)
 
 run = True
 go = False
@@ -67,10 +68,25 @@ def netforce(a):
 def lift(a):
     return s * (a.w.cross(airpseed(a)))
 
+def fixModel(a):
+    global p
+    h = a.pos.y
+    if h < 11000:
+        a.T = 15.04 - 0.00649 * h
+        a.P = 101.29 * ((a.T + 273.1)/288.08) ** 5.256
+    elif h >= 11000 and h < 25000:
+        a.T = -56.46
+        a.P = 22.65 * math.e ** (1.73 - 0.000157 * h)
+    else:
+        a.T = -131.21 + 0.00299 * h
+        a.P = 2.488 * ((a.T + 273.1)/216.6) ** -11.388
+    p = a.P / (0.2869 * (a.T + 273.1))
+
 def move(a,reps):
     global t
     if go == True:
         for i in range(reps):
+            fixModel(a)
             acc=netforce(a)/a.m
             a.vec+=acc*dt
             a.pos+=a.vec*dt
@@ -82,15 +98,18 @@ def move(a,reps):
 def checker(a):
     global run
     global maxHeight
+    global maxHeightTime
 
     #if abs(a.vec.y)<0.01:
     #    print(f'Max Height = {round(a.pos.y,2)} m')
     if a.pos.y > maxHeight:
         maxHeight = a.pos.y
+        maxHeightTime = t
     if a.pos.y<0: #float and it's checking to see if you've hit the ground
         print(f'Time = {t} s')
         print(f'Range = {a.pos.x} m')
         #print(f'Range = {a.pos.x * 1.09361} yd')
         print(f'Final Speed = {a.vec.mag()} m/s')
         print(f'Max Height = {maxHeight} m')
+        print(f'Max Height Time = {maxHeightTime} s')
         run = False
