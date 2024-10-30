@@ -26,7 +26,7 @@ height = 0
 
 startAngle = 0
 endAngle = 360
-da = 90
+da = 1
 
 balls = []
 for i in range(startAngle,endAngle,da):
