@@ -17,9 +17,10 @@ def setup(w,h):
 def background():
     screen.fill((0, 0, 0))
 
-def render(a):
+def render(list):
     background()
-    pg.draw.circle(screen,(0,0,0),(scale*a.pos.x+screen.get_width()/2,screen.get_height()/2-scale*a.pos.z),5)
+    for i in range(len(list)):
+        pg.draw.circle(screen,list[i].color,(scale*list[i].pos.x+screen.get_width()/2,screen.get_height()/2-scale*list[i].pos.y),5)
     pg.display.flip()
 
 def frameRate(a):
