@@ -3,15 +3,7 @@ import pygame as pg
 import physics as phys
 
 
-scale=1 #how many pixels are in a meter
-
-def rescale(list):
-    maxDistance = 0
-    for i in range(len(list)):
-        if abs(list[i].pos.x) + list[i].r > maxDistance:
-            maxDistance = abs(list[i].pos.x) + list[i].r
-        elif abs(list[i].pos.y) > maxDistance:
-            maxDistance = abs(list[i].pos.y) + list[i].r
+scale=1E-9 #how many pixels are in a meter
 
 def setup(w,h):
 
@@ -39,9 +31,12 @@ def frameRate(a):
     clock.tick(a)
 
 def check_interactions():
+    global scale
     for event in pg.event.get():
         if event.type == pg.QUIT:
             phys.run=False
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE:
-                phys.go = True        
+                phys.go = True
+        if event.type == pg.MOUSEWHEEL:
+            scale *= 1.5**event.y

@@ -1,6 +1,6 @@
 from celestialBody import*
 
-dt = 0.001
+dt = 10000
 G = 6.67e-11
 t = 0
 
@@ -29,16 +29,16 @@ def move(list,reps):
     if go == True:
         for j in range(reps):
             forces = netForce(list)
+            t+=dt
             for i in range(len(list)):
                 #print(list[i].recpos.empty())
                 acc=forces[i]/list[i].m
                 list[i].vec+=acc*dt
                 list[i].pos+=list[i].vec*dt
-                t+=dt/len(list)
-                if t % 0.5 < 0.2:
+                if t % dt * 1000 < dt*200:
                     list[i].recpos.put(list[i].pos)
                 if (list[i].recpos.qsize() > 2500):
                     list[i].recpos.get()
-            if t >= 60:
-                run = False
-                break
+            #if t >= 60:
+            #    run = False
+            #    break

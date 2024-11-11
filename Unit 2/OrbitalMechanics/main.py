@@ -10,6 +10,6 @@ while physics.run:
 
     physics.move(physics.planets,20)
     gx.render(physics.planets)
-    print(f'Distance = {physics.planets[0].pos.x} m')
+    
 
 gx.pg.quit()
