@@ -35,7 +35,7 @@ def move(list,reps):
                 acc=forces[i]/list[i].m
                 list[i].vec+=acc*dt
                 list[i].pos+=list[i].vec*dt
-                if t % dt * 1000 < dt*200:
+                if (t%(dt*500)<dt*250):
                     list[i].recpos.put(list[i].pos)
                 if (list[i].recpos.qsize() > 2500):
                     list[i].recpos.get()
