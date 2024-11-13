@@ -39,6 +39,6 @@ def move(list,reps):
                     list[i].recpos.put(list[i].pos)
                 if (list[i].recpos.qsize() > 2500):
                     list[i].recpos.get()
-            #if t >= 60:
+            #if t >= 365*24*60*60:
             #    run = False
             #    break
