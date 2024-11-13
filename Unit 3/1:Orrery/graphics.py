@@ -1,6 +1,7 @@
 #render
 import pygame as pg
 import physics as phys
+import time
 
 scale=1E-9 #how many pixels are in a meter
 
@@ -53,8 +54,11 @@ def render(list):
             list[i].recpos.put(current)
             pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
         pg.draw.circle(screen,list[i].color,(scale*(list[i].pos.x-focusx)+centerx,centery-scale*(list[i].pos.y-focusy)),list[i].r/10)
-        txt = (str(int(phys.t/(60*60*24*365))) +  "Years, " + str(int(phys.t/(60*60*24)%365)) + " Days")
-        font = pg.font.SysFont(None, 36)
+        #txt = (str(int(phys.t/(60*60*24*365))) +  "Years, " + str(int(phys.t/(60*60*24)%365)) + " Days")
+        txt = ""
+        for i in range(4):
+            txt += str(time.gmtime(1732579200 + phys.t)[i]) + "  "
+        font = pg.font.SysFont(None, 18)
         image = font.render(txt, True, (255,255,255))
         screen.blit(image, (0,0))
     pg.display.flip()
@@ -75,4 +79,4 @@ def check_interactions():
             elif event.key == pg.K_LEFT:
                 focusNum -= 1
         if event.type == pg.MOUSEWHEEL:
-            scale *= 1.5**event.y
+            scale *= 2**event.y

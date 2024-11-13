@@ -1,6 +1,6 @@
 from celestialBody import*
 
-dt = 10000
+dt = 1000
 G = 6.67e-11
 t = 0
 
@@ -35,6 +35,9 @@ def move(list,reps):
                 acc=forces[i]/list[i].m
                 list[i].vec+=acc*dt
                 list[i].pos+=list[i].vec*dt
+                list[i].distanceFromStart = math.sqrt((list[i].pos.x - list[i].startPoint.x)**2 + (list[i].pos.y - list[i].startPoint.y)**2 + (list[i].pos.z - list[i].startPoint.z)**2)
+                if list[i].distanceFromStart <= 1737.4:
+                    print (i + ": " + t)
                 if (t%(dt*500)<dt*250):
                     list[i].recpos.put(list[i].pos)
                 if (list[i].recpos.qsize() > 2500):
