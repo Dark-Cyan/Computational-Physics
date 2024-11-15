@@ -6,7 +6,7 @@ gx.background()
 while physics.run:
 
     gx.check_interactions()
-    gx.frameRate(100)
+    gx.frameRate(10000)
 
     physics.move(physics.planets,20)
     gx.render(physics.planets)

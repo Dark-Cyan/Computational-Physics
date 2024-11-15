@@ -57,6 +57,14 @@ def render(list):
         #txt = (str(int(phys.t/(60*60*24*365))) +  "Years, " + str(int(phys.t/(60*60*24)%365)) + " Days")
         txt = ""
         for i in range(4):
+            if i == 0:
+                txt += "Year: "
+            elif i == 1:
+                txt += "Month: "
+            elif i == 2:
+                txt += "Day: "
+            else:
+                txt += "Hour: "
             txt += str(time.gmtime(1732579200 + phys.t)[i]) + "  "
         font = pg.font.SysFont(None, 18)
         image = font.render(txt, True, (255,255,255))
