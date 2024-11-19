@@ -76,6 +76,7 @@ def shiftFocus(list):
 def render(list):
     shiftFocus(list)
     background()
+    pg.draw.circle(screen,list[10].color,(scale*(list[10].initPos.x-focusx)+centerx,centery-scale*(list[10].initPos.y-focusy)),list[10].r/10)
     for i in range(len(list)):
         for j in range(list[i].recpos.qsize()):
             current = list[i].recpos.get()

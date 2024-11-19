@@ -82,7 +82,6 @@ def render(list):
             list[i].recpos.put(current)
             pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
         pg.draw.circle(screen,list[i].color,(scale*(list[i].pos.x-focusx)+centerx,centery-scale*(list[i].pos.y-focusy)),list[i].r/10)
-        #txt = (str(int(phys.t/(60*60*24*365))) +  "Years, " + str(int(phys.t/(60*60*24)%365)) + " Days")
         txt = ""
         for i in range(4):
             if i == 0:
