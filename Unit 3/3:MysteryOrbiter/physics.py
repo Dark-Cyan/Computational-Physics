@@ -1,6 +1,6 @@
 from celestialBody import*
 
-dt = 1000
+dt = 20000
 G = 6.67e-11
 t = 0
 
@@ -9,11 +9,12 @@ go = False
 
 def newDT(list, i):
     global dt
-    dt = list[i].distanceFromStart/50000000
+    #dt = list[i].distanceFromStart/5000000
+    dt = list[i].pos.mag()/40000000
     if dt <= 1:
         dt = 1
-    if dt <= 100000 and t <= 3600 * 24 * 365 * 30:
-        dt = 100000
+    #if dt <= 100000 and t <= 3600 * 24 * 365 * 30:
+    #    dt = 100000
 
 def netForce(list):
     forces = []
@@ -48,7 +49,13 @@ def move(list,reps):
                     list[i].minSpeed = list[i].vec.mag()
                 list[i].pos+=list[i].vec*dt
                 list[i].distanceFromStart = math.sqrt((list[i].pos.x - list[i].startPoint.x)**2 + (list[i].pos.y - list[i].startPoint.y)**2 + (list[i].pos.z - list[i].startPoint.z)**2)
-                if (dt <= 50 and t >= 3600 * 24 * 365) or (list[10].pos.mag() <= list[10].initPos.mag() * 1.01 and list[10].pos.mag() >= list[10].initPos.mag() * 0.99 and t >= 3600 * 24 * 365 * 75):
+                if (dt <= 50 and t >= 3600 * 24 * 365) or (list[10].pos.mag() <= list[10].initPos.mag() * 1.05 and list[10].pos.mag() >= list[10].initPos.mag() * 0.95 and t >= 3600 * 24 * 365 * 20):
+                    years = int(t/60/60/24/365)
+                    days = t/60/60/24 - 365*years
+                    print ("Years:", years, "Days:", days)
+                    run = False
+                    break
+                if (t >= 60 * 60 * 24 * 365 * 50 and math.atan(list[10].pos.y/list[10].pos.x) <= math.atan(list[10].initPos.y/list[10].initPos.x) + math.pi / 51200 and math.atan(list[10].pos.y/list[10].pos.x) >= math.atan(list[10].initPos.y/list[10].initPos.x) - math.pi / 51200):
                     years = int(t/60/60/24/365)
                     days = t/60/60/24 - 365*years
                     print ("Years:", years, "Days:", days)
