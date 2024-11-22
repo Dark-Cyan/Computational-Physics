@@ -76,14 +76,13 @@ def shiftFocus(list):
 def render(list):
     shiftFocus(list)
     background()
-    pg.draw.circle(screen,list[10].color,(scale*(list[10].initPos.x-focusx)+centerx,centery-scale*(list[10].initPos.y-focusy)),list[10].r/10)
     for i in range(len(list)):
-        #for j in range(list[i].recpos.qsize()):
-        #    current = list[i].recpos.get()
-        #    list[i].recpos.put(current)
-        #    pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
-        pg.draw.circle(screen,list[0].color,(scale*(list[0].pos.x-focusx)+centerx,centery-scale*(list[0].pos.y-focusy)),list[0].r/10)
-        pg.draw.circle(screen,list[10].color,(scale*(list[10].pos.x-focusx)+centerx,centery-scale*(list[10].pos.y-focusy)),list[10].r/10)
+        for j in range(list[i].recpos.qsize()):
+            current = list[i].recpos.get()
+            list[i].recpos.put(current)
+            pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
+        pg.draw.circle(screen,list[i].color,(scale*(list[i].pos.x-focusx)+centerx,centery-scale*(list[i].pos.y-focusy)),list[i].r/10)
+        pg.draw.line(screen, (255,0,0), (scale*(-focusx)+centerx,centery-scale*(-focusy)), (scale*(list[i].pos.x-focusx)+centerx,centery-scale*(list[i].pos.y-focusy)), 5)
         txt = ""
         for i in range(4):
             if i == 0:
