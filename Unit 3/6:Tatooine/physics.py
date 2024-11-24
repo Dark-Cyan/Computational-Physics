@@ -35,8 +35,14 @@ def move(list,reps):
                 acc=forces[i]/list[i].m
                 list[i].vec+=acc*dt
                 list[i].pos+=list[i].vec*dt
+                
+                if list[2].pos.mag() >= list[2].maxDistance:
+                    list[2].maxDistance = list[2].pos.mag()
+                elif list[2].pos.mag() <= list[2].minDistance:
+                    list[2].minDistance = list[2].pos.mag()
+
                 list[i].correctAngle()
-                if (list[4].angle>= 360 and t >= 60 * 60 * 24 * 30):
+                if (list[2].angle>= 360 and t >= 60 * 60 * 24 * 30):
                     years = int(t/60/60/24/365)
                     days = t/60/60/24 - 365*years
                     print ("Years:", years, "Days:", days)

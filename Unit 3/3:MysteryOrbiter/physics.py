@@ -13,7 +13,7 @@ def toRadians(radians):
 def newDT(list, i):
     global dt
     #dt = list[i].distanceFromStart/5000000
-    dt = list[i].pos.mag()/640000000
+    dt = list[i].pos.mag()/20000000
     if dt <= 1:
         dt = 1
     #if dt <= 100000 and t <= 3600 * 24 * 365 * 30:

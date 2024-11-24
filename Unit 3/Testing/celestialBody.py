@@ -7,7 +7,7 @@ planets = []
 
 class celestialBody:
 
-    def __init__(self,mass,radius,initial_pos,velocity,color):
+    def __init__(self,mass,radius,initial_pos,velocity,color,name):
         self.m=mass
         self.r=radius
         self.pos=initial_pos
@@ -17,7 +17,25 @@ class celestialBody:
         self.recpos = queue.Queue(0)
         self.recpos.put(self.pos)
         self.color = color
+        self.name = name
+        self.orbit = "Undefined"
+
+        #very unnecessary
+        self.initAngle = 0
+        self.angle = 0
+        self.correctAngle()
+        self.initAngle = self.angle
+        self.correctAngle()
+
         planets.append(self)
+
+    def correctAngle(planet):
+        if planet.pos.y>= 0:
+            radians = math.atan2(planet.pos.y,planet.pos.x)
+        else:
+            radians = math.pi * 2 + math.atan2(planet.pos.y,planet.pos.x)
+        degrees = math.degrees(radians)
+        planet.angle = (degrees - planet.initAngle + 360)%360 + 1
 
 mass = (1988410E24, 3.302E23, 48.685E23, 5.97219E24, 7.349E22, 6.4171E23, 189818722E19, 5.6834E26, 86.813E24, 102.409E24)
 radius = (100, 100, 100, 100, 33, 100, 100, 100, 100, 100)
@@ -31,5 +49,7 @@ start = (Vec(startX[0], startY[0], startZ[0]), Vec(startX[1], startY[1], startZ[
 
 color = ((249,215,28), (77, 65, 53), (165,124,27), (107,147,214), (246, 241, 213), (193,68,14), (216,202,157), (227,224,192), (172, 229, 238), (91,93,223))
 
+name = ("Sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+
 for i in range(len(mass)):
-    planet = celestialBody(mass[i],radius[i],start[i], velocity[i], color[i])
+    planet = celestialBody(mass[i],radius[i],start[i], velocity[i], color[i], name[i])
