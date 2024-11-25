@@ -1,6 +1,6 @@
 from celestialBody import*
 
-dt = 5000
+dt = 1000
 G = 6.67e-11
 t = 0
 
@@ -42,21 +42,16 @@ def move(list,reps):
 
                 list[i].pos+=list[i].vec*dt
                 
-                if list[2].pos.mag() >= list[2].maxDistance:
-                    list[2].maxDistance = list[2].pos.mag()
-                elif list[2].pos.mag() <= list[2].minDistance:
-                    list[2].minDistance = list[2].pos.mag()
-
                 list[i].correctAngle()
-                if (list[10].angle>= 360 and t >= 60 * 60 * 24 * 30):
+                if (list[1].angle>= 360 and t >= 60 * 60 * 24 * 30):
                     years = int(t/60/60/24/365)
                     days = t/60/60/24 - 365*years
                     print ("Years:", years, "Days:", days)
                     run = False
                     break
-                if (t%(dt*500)<dt*250):
-                    list[i].recpos.put(list[i].pos)
-                if (list[i].recpos.qsize() > 2500):
-                    list[i].recpos.get()
+                #if (t%(dt*500)<dt*250):
+                #    list[i].recpos.put(list[i].pos)
+                #if (list[i].recpos.qsize() > 100):
+                #    list[i].recpos.get()
             if run == False:
                 break

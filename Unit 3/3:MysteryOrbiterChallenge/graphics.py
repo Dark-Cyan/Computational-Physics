@@ -60,10 +60,10 @@ def render(list):
     background()
     planet = 4
     for i in range(len(list)):
-        for j in range(list[i].recpos.qsize()):
-            current = list[i].recpos.get()
-            list[i].recpos.put(current)
-            pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
+        #for j in range(list[i].recpos.qsize()):
+        #    current = list[i].recpos.get()
+        #    list[i].recpos.put(current)
+        #    pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
         pg.draw.circle(screen,list[i].color,(scale*(list[i].pos.x-focusx)+centerx,centery-scale*(list[i].pos.y-focusy)),list[i].r/10)
         txt = ""
         for i in range(4):

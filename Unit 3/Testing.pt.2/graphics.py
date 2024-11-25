@@ -40,8 +40,26 @@ def identifyFocus(focusNum):
     global focusName
     if focusNum is 0:
         focusName = "Solar System Barycenter"
-    else:
-        focusName = phys.planets[focusNum-1].name
+    elif focusNum is 1:
+        focusName = "Sun"
+    elif focusNum is 2:
+        focusName = "Mercury"
+    elif focusNum is 3:
+        focusName = "Venus"
+    elif focusNum is 4:
+        focusName = "Earth"
+    elif focusNum is 5:
+        focusName = "The Moon"
+    elif focusNum is 6:
+        focusName = "Mars"
+    elif focusNum is 7:
+        focusName = "Jupiter"
+    elif focusNum is 8:
+        focusName = "Saturn"
+    elif focusNum is 9:
+        focusName = "Uranus"
+    elif focusNum is 10:
+        focusName = "Neptune"
     
 
 def shiftFocus(list):
@@ -58,13 +76,14 @@ def shiftFocus(list):
 def render(list):
     shiftFocus(list)
     background()
-    planet = 4
+    pg.draw.circle(screen,list[10].color,(scale*(list[10].initPos.x-focusx)+centerx,centery-scale*(list[10].initPos.y-focusy)),list[10].r/10)
     for i in range(len(list)):
-        for j in range(list[i].recpos.qsize()):
-            current = list[i].recpos.get()
-            list[i].recpos.put(current)
-            pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
-        pg.draw.circle(screen,list[i].color,(scale*(list[i].pos.x-focusx)+centerx,centery-scale*(list[i].pos.y-focusy)),list[i].r/10)
+        #for j in range(list[i].recpos.qsize()):
+        #    current = list[i].recpos.get()
+        #    list[i].recpos.put(current)
+        #    pg.draw.circle(screen,(255,255,255),(scale*(current.x-focusx)+centerx,centery-scale*(current.y-focusy)),1)
+        pg.draw.circle(screen,list[0].color,(scale*(list[0].pos.x-focusx)+centerx,centery-scale*(list[0].pos.y-focusy)),list[0].r/10)
+        pg.draw.circle(screen,list[10].color,(scale*(list[10].pos.x-focusx)+centerx,centery-scale*(list[10].pos.y-focusy)),list[10].r/10)
         txt = ""
         for i in range(4):
             if i == 0:
