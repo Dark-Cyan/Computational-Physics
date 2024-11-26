@@ -6,9 +6,11 @@ gx.background()
 while physics.run:
 
     gx.check_interactions()
-    gx.frameRate(1000)
+    gx.frameRate(60)
 
-    physics.move(physics.planets,800)
+    physics.move(physics.planets,100)
     gx.render(physics.planets)
     
+print(f'Max Speed: {physics.planets[8].maxSpeed}')
+print(f'Min Speed: {physics.planets[8].minSpeed}')
 gx.pg.quit()

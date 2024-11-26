@@ -1,18 +1,11 @@
 from celestialBody import*
 
-dt = 1000
+dt = 10000
 G = 6.67e-11
 t = 0
 
 run = True
 go = False
-
-def newDT(list, i):
-    global dt
-    acc = abs(i/list[10].m)
-    dt = 1/(acc*10)
-    if dt <= 1:
-        dt = 1
 
 def netForce(list):
     forces = []
@@ -30,34 +23,27 @@ def netForce(list):
     return forces
 
 def move(list,reps):
-    
     global t
     global run
     if go == True:
         for j in range(reps):
-            #newDT(list,9)
             forces = netForce(list)
-            #newDT(list,forces[10])
             t+=dt
             for i in range(len(list)):
                 acc=forces[i]/list[i].m
                 list[i].vec+=acc*dt
-
-                if (list[i].vec.mag() > list[i].maxSpeed):
+                if (list[i].vec.mag()>list[i].maxSpeed):
                     list[i].maxSpeed = list[i].vec.mag()
-                elif (list[i].vec.mag() < list[i].minSpeed):
+                elif (list[i].vec.mag()<list[i].minSpeed):
                     list[i].minSpeed = list[i].vec.mag()
-
                 list[i].pos+=list[i].vec*dt
-                
-
-                list[i].correctAngle()
-                print (abs(list[10].pos - list[1].pos))
-                if abs(list[10].pos - list[1].pos) <= 2440e3:
-                    years = int(t/60/60/24/365)
-                    days = t/60/60/24 - 365*years
-                    print ("Years:", years, "Days:", days)
+                list[i].distanceFromStart = math.sqrt((list[i].pos.x - list[i].startPoint.x)**2 + (list[i].pos.y - list[i].startPoint.y)**2 + (list[i].pos.z - list[i].startPoint.z)**2)
+                if t >= 3600 * 24 * 30687:
                     run = False
                     break
+                if (t%(dt*500)<dt*250):
+                    list[i].recpos.put(list[i].pos)
+                if (list[i].recpos.qsize() > 2500):
+                    list[i].recpos.get()
             if run == False:
                 break

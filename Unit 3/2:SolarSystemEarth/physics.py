@@ -1,9 +1,10 @@
 from celestialBody import*
 
-dt = 1000
+dt = 100
 G = 6.67e-11
 t = 0
 
+executed = False
 run = True
 go = False
 
@@ -30,15 +31,18 @@ def netForce(list):
     return forces
 
 def move(list,reps):
-    
+    global executed
     global t
     global run
     if go == True:
         for j in range(reps):
-            #newDT(list,9)
             forces = netForce(list)
-            #newDT(list,forces[10])
             t+=dt
+            if (abs(list[10].pos - list[0].pos) <= 695700e3):
+                print(t)
+                print(list[10].vec.mag()) 
+                run = False
+                break
             for i in range(len(list)):
                 acc=forces[i]/list[i].m
                 list[i].vec+=acc*dt
@@ -52,12 +56,6 @@ def move(list,reps):
                 
 
                 list[i].correctAngle()
-                print (abs(list[10].pos - list[1].pos))
-                if abs(list[10].pos - list[1].pos) <= 2440e3:
-                    years = int(t/60/60/24/365)
-                    days = t/60/60/24 - 365*years
-                    print ("Years:", years, "Days:", days)
-                    run = False
-                    break
+                
             if run == False:
                 break
