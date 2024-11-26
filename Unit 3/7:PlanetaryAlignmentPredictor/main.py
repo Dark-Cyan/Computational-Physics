@@ -11,6 +11,4 @@ while physics.run:
     physics.move(physics.planets,1600)
     gx.render(physics.planets)
     
-print(f'Maximum Speed: {physics.planets[10].maxSpeed} m/s')
-print(f'Minimum Speed: {physics.planets[10].minSpeed} m/s')
 gx.pg.quit()

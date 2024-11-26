@@ -45,6 +45,7 @@ def move(list,reps):
 
             while len(list) >= 4:
                 print(f'Newtons: {abs(abs(forces[len(list)-1]) - abs(forces[len(list)-2]))} N')
+                print(f'Newtons Without Tatooine: {abs(abs(((G * (list[0].m/abs(list[len(list)-1].pos - list[0].pos) ** 2) * (list[len(list)-1].pos - list[0].pos).norm())) + ((G * (list[1].m/abs(list[len(list)-1].pos - list[1].pos) ** 2) * (list[len(list)-1].pos - list[1].pos).norm()))) - abs(((G * (list[0].m/abs(list[len(list)-2].pos - list[0].pos) ** 2) * (list[len(list)-2].pos - list[0].pos).norm())) + ((G * (list[1].m/abs(list[len(list)-1].pos - list[1].pos) ** 2) * (list[len(list)-2].pos - list[1].pos).norm()))))} N')
                 print(f'Newtons: {forces[len(list)-1]} N')
                 print(f'Newtons: {forces[len(list)-2]} N')
                 del list[len(list)-1]

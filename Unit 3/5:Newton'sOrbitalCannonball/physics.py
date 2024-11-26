@@ -1,18 +1,11 @@
 from celestialBody import*
 
-dt = 1000
+dt = 10
 G = 6.67e-11
 t = 0
 
 run = True
 go = False
-
-def newDT(list, i):
-    global dt
-    acc = abs(i/list[10].m)
-    dt = 1/(acc*10)
-    if dt <= 1:
-        dt = 1
 
 def netForce(list):
     forces = []
@@ -30,14 +23,11 @@ def netForce(list):
     return forces
 
 def move(list,reps):
-    
     global t
     global run
     if go == True:
         for j in range(reps):
-            #newDT(list,9)
             forces = netForce(list)
-            #newDT(list,forces[10])
             t+=dt
             for i in range(len(list)):
                 acc=forces[i]/list[i].m
@@ -52,15 +42,12 @@ def move(list,reps):
                 
 
                 list[i].correctAngle()
-                if (list[10].angle>= 360 and t >= 60 * 60 * 24 * 30):
+                if (list[1].angle>= 360 and t >= 60):
                     years = int(t/60/60/24/365)
                     days = t/60/60/24 - 365*years
-                    print ("Years:", years, "Days:", days)
+                    print ("Seconds:", t)
+                    print ("End Height:", list[1].pos.mag()-1737.5e3)
                     run = False
                     break
-                #if (t%(dt*500)<dt*250):
-                #    list[i].recpos.put(list[i].pos)
-                #if (list[i].recpos.qsize() > 2500):
-                #    list[i].recpos.get()
             if run == False:
                 break

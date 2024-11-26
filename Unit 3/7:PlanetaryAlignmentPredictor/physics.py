@@ -1,18 +1,12 @@
 from celestialBody import*
+import itertools
 
-dt = 1000
+dt = 10000
 G = 6.67e-11
 t = 0
 
 run = True
 go = False
-
-def newDT(list, i):
-    global dt
-    acc = abs(i/list[10].m)
-    dt = 1/(acc*10)
-    if dt <= 1:
-        dt = 1
 
 def netForce(list):
     forces = []
@@ -33,34 +27,38 @@ def move(list,reps):
     
     global t
     global run
+
+    withoutSun = []
+    for i in list:
+        withoutSun.append(i)
+    withoutSun.pop(0)
+
     if go == True:
         for j in range(reps):
-            #newDT(list,9)
             forces = netForce(list)
-            #newDT(list,forces[10])
             t+=dt
             for i in range(len(list)):
                 acc=forces[i]/list[i].m
                 list[i].vec+=acc*dt
-
-                if (list[i].vec.mag() > list[i].maxSpeed):
-                    list[i].maxSpeed = list[i].vec.mag()
-                elif (list[i].vec.mag() < list[i].minSpeed):
-                    list[i].minSpeed = list[i].vec.mag()
-
                 list[i].pos+=list[i].vec*dt
                 
-
                 list[i].correctAngle()
-                if (list[10].angle>= 360 and t >= 60 * 60 * 24 * 30):
+
+                totalComparisons = 0
+                workingMatches = 0
+                for a, b in itertools.combinations(withoutSun, 2):
+                    totalComparisons += 1
+                    if (abs(b.angle - a.angle) <= 20 or abs(b.angle - a.angle) >= 340):
+                        workingMatches += 1
+                
+                if (totalComparisons == workingMatches):
                     years = int(t/60/60/24/365)
                     days = t/60/60/24 - 365*years
                     print ("Years:", years, "Days:", days)
                     run = False
                     break
-                #if (t%(dt*500)<dt*250):
-                #    list[i].recpos.put(list[i].pos)
-                #if (list[i].recpos.qsize() > 2500):
-                #    list[i].recpos.get()
+                
+                #if (list[9].angle>= 360 and t >= 60 * 60 * 24 * 30):
+                    
             if run == False:
                 break
