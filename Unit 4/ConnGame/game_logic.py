@@ -10,7 +10,7 @@ class Game:
     def crash(self):
 
         self.state='stop'
-        life-=1
+        self.lives-=1
         print("CRASH")
         print("Lives",self.lives)
         print("Score =",self.score)

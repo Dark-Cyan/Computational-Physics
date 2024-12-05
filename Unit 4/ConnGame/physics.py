@@ -46,8 +46,8 @@ def collision():
     if lander.pos.y <-100:
         game.state='stop'
         if lander.vel.mag()>cs:
-            game.crash
-            game.lose
+            game.crash()
+            game.lose()
         elif lander.vel.mag()<cs:
-            game.land
+            game.land()
             game.win()
