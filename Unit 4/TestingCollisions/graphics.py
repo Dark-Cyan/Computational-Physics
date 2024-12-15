@@ -32,6 +32,7 @@ COLORS = [
 RADII = [17,25,32,38,50,63,75,87,100,115,135]
 Density = 0.001
 POINTS = [1,3,6,10,15,21,28,36,45,55,66]
+text_font = pg.font.SysFont("Arial", 30)
 
 def setup():
     global screen
@@ -41,11 +42,11 @@ def setup():
     screen = pg.display.set_mode((w, h))
     pg.display.set_caption("Suika Game")
     clock = pg.time.Clock()
-    background_image = pg.image.load("back.png").convert()
+    background_image = pg.image.load('back.png')
 
 def background():
-    screen.blit(background_image, (0, 0))
     screen.fill((0,0,0))
+    screen.blit(background_image, (0, 0))
     width = w/2
     height = h/2
     border = [
@@ -90,6 +91,10 @@ def check_interactions():
             currentFruit = p.stuff(Density*math.pi*(RADII[randomFruit]**2), RADII[randomFruit], p.Vec(100000,330,0), p.Vec(0,0,0), p.Vec(0,-9.8,0), True, COLORS[randomFruit], randomFruit)
             dropTimer = time.time()
 
+def draw_text(text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    screen.blit(img, (x,y))
+
 game  = gl.Game()
 setup()
 mouseX,mouseY = pg.mouse.get_pos()
@@ -103,6 +108,7 @@ while run:
     if game.state == 'play':
         
         background()
+        draw_text(("Score:", game.score), text_font, (255,255,255), 0,0)
     
         if (time.time() - dropTimer > 0.9):
             currentX = pg.mouse.get_pos()[0] - w/2
@@ -112,7 +118,7 @@ while run:
                 currentX = 200 - currentFruit.r
             currentFruit.pos.x = (currentX)
 
-        p.move(p.fruits,1)
+        p.move(p.fruits,10)
 
         check = 0
         for i in p.fruits:

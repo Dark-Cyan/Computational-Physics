@@ -27,7 +27,6 @@ class Game:
 
     def updatePoints(self, list):
         points = sum(list)
-        print(points)
 
     def win(self):
         print("YOU WIN")

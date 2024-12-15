@@ -2,7 +2,7 @@ from stuff import*
 
 #Time Variables
 t = 0
-dt = 0.1
+dt = 0.01
 
 #Physics Variables
 elasticity = 0
