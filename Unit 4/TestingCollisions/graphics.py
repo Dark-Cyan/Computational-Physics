@@ -32,7 +32,7 @@ COLORS = [
 RADII = [17,25,32,38,50,63,75,87,100,115,135]
 Density = 0.001
 POINTS = [1,3,6,10,15,21,28,36,45,55,66]
-text_font = pg.font.SysFont("Arial", 30)
+#text_font = pg.font.SysFont(None, 18)
 
 def setup():
     global screen
@@ -63,11 +63,8 @@ def background():
     pg.draw.line(screen, (105,105,105), (width-200,height-280), (width+200,height-280), 3)
 
 def render(list):
-    
     for i in list:
-        pg.draw.circle(screen, i.col, (w/2+i.pos.x,h/2-i.pos.y), i.r)
-
-        
+        pg.draw.circle(screen, i.col, (w/2+i.pos.x,h/2-i.pos.y), i.r)      
 
 def frameRate(a):
     clock.tick(a)
@@ -80,7 +77,12 @@ def check_interactions():
         if event.type == pg.QUIT:
             run = False
         if event.type==pg.KEYDOWN:
-            hello = 1
+            if event.key==pg.K_r:
+                game.reset()
+                for po in p.points:
+                    p.points.clear()
+                    p.fruits.clear()
+                currentFruit = p.stuff(Density*math.pi*(RADII[0]**2), RADII[0], p.Vec(mouseX,330,0), p.Vec(0,0,0), p.Vec(0,-9.8,0), True, COLORS[0], 0)
         if event.type ==pg.MOUSEBUTTONDOWN:
             if (time.time() - dropTimer < 1):
                 continue
@@ -91,9 +93,10 @@ def check_interactions():
             currentFruit = p.stuff(Density*math.pi*(RADII[randomFruit]**2), RADII[randomFruit], p.Vec(100000,330,0), p.Vec(0,0,0), p.Vec(0,-9.8,0), True, COLORS[randomFruit], randomFruit)
             dropTimer = time.time()
 
-def draw_text(text, font, text_col, x, y):
-    img = font.render(text, True, text_col)
-    screen.blit(img, (x,y))
+def draw_text(text, text_col, x, y):
+    font = pg.font.SysFont(None, 50)
+    image = font.render(text, True, text_col)
+    screen.blit(image, (x,y))
 
 game  = gl.Game()
 setup()
@@ -106,11 +109,11 @@ while run:
     check_interactions()
 
     if game.state == 'play':
-        
         background()
-        draw_text(("Score:", game.score), text_font, (255,255,255), 0,0)
+        draw_text(("Score: " + str(sum(p.points))), (255,255,255), 0,0)
     
         if (time.time() - dropTimer > 0.9):
+            game.updatePoints(p.points)
             currentX = pg.mouse.get_pos()[0] - w/2
             if currentX - currentFruit.r <= -200:
                 currentX = -200 + currentFruit.r
@@ -132,9 +135,16 @@ while run:
             game.overFlow(False)
 
         render(p.fruits)
-
-        game.updatePoints(p.points)
+        if p.win == True:
+            game.win()
         pg.display.flip()
-        randomNum = random.randint(1,11)
+    elif game.state == 'lose':
+        draw_text("GAME OVER", (0,157,196), 170,310)
+        draw_text("\'r' to try again", (0,157,196), 160, 360)
+        pg.display.flip()
+    elif game.state == 'win':
+        draw_text("YOU WIN", (0,157,196), 180,310)
+        draw_text("\'r' to try again", (0,157,196), 160, 360)
+        pg.display.flip()
 
 pg.quit()

@@ -1,5 +1,7 @@
 from stuff import*
 
+win = False
+
 #Time Variables
 t = 0
 dt = 0.01
@@ -38,6 +40,9 @@ def handle_fruit_collisions(fruit, list):
             other_fruit.falling = True
             resolve_overlap(fruit, other_fruit)
             if (fruit.type == other_fruit.type):
+                if fruit.type == 10:
+                    win = True
+                    continue
                 list.remove(fruit)
                 list.remove(other_fruit)
                 newFruit = stuff(Density*math.pi*(RADII[fruit.type+1]**2), RADII[fruit.type+1], Vec((fruit.pos.x+other_fruit.pos.x)/2, (fruit.pos.y+other_fruit.pos.y)/2, 0), Vec(0,0,0), Vec(0,-9.8,0), False, COLORS[fruit.type+1], fruit.type+1)
