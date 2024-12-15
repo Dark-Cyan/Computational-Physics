@@ -14,6 +14,10 @@ class stuff:
         self.type = type
         self.falling = False
         fruits.append(self)
+        points.append(POINTS[type])
+
+POINTS = [1,3,6,10,15,21,28,36,45,55,66]
 
 fruits = []
+points = []
 

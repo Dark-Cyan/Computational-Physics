@@ -2,6 +2,7 @@
 
 import pygame as pg
 import physics as p
+import game_logic as gl
 import time
 import random
 import math
@@ -40,10 +41,10 @@ def setup():
     screen = pg.display.set_mode((w, h))
     pg.display.set_caption("Suika Game")
     clock = pg.time.Clock()
-    #background_image = pg.image.load("deep_space.jpg").convert()
+    background_image = pg.image.load("back.png").convert()
 
 def background():
-    #screen.blit(background_image, (0, 0))
+    screen.blit(background_image, (0, 0))
     screen.fill((0,0,0))
     width = w/2
     height = h/2
@@ -58,6 +59,7 @@ def background():
         (width-200,height+320)
     ]
     pg.draw.polygon(screen, (255,255,255), border)
+    pg.draw.line(screen, (105,105,105), (width-200,height-280), (width+200,height-280), 3)
 
 def render(list):
     
@@ -88,27 +90,45 @@ def check_interactions():
             currentFruit = p.stuff(Density*math.pi*(RADII[randomFruit]**2), RADII[randomFruit], p.Vec(100000,330,0), p.Vec(0,0,0), p.Vec(0,-9.8,0), True, COLORS[randomFruit], randomFruit)
             dropTimer = time.time()
 
+game  = gl.Game()
 setup()
 mouseX,mouseY = pg.mouse.get_pos()
 currentFruit = p.stuff(Density*math.pi*(RADII[0]**2), RADII[0], p.Vec(mouseX,330,0), p.Vec(0,0,0), p.Vec(0,-9.8,0), True, COLORS[0], 0)
 
+
 while run:
     frameRate(60)
     check_interactions()
-    background()
+
+    if game.state == 'play':
+        
+        background()
     
-    if (time.time() - dropTimer > 0.9):
-        currentX = pg.mouse.get_pos()[0] - w/2
-        if currentX - currentFruit.r <= -200:
-            currentX = -200 + currentFruit.r
-        elif currentX + currentFruit.r >= 200:
-            currentX = 200 - currentFruit.r
-        currentFruit.pos.x = (currentX)
+        if (time.time() - dropTimer > 0.9):
+            currentX = pg.mouse.get_pos()[0] - w/2
+            if currentX - currentFruit.r <= -200:
+                currentX = -200 + currentFruit.r
+            elif currentX + currentFruit.r >= 200:
+                currentX = 200 - currentFruit.r
+            currentFruit.pos.x = (currentX)
 
-    p.move(p.fruits,1)
-    render(p.fruits)
+        p.move(p.fruits,1)
 
-    pg.display.flip()
-    randomNum = random.randint(1,11)
+        check = 0
+        for i in p.fruits:
+            if i.anchor == True:
+                hello = 1
+            elif i.pos.y >= 280:
+                game.overFlow(True)
+                break
+            check +=1
+        if check == len(p.fruits):
+            game.overFlow(False)
+
+        render(p.fruits)
+
+        game.updatePoints(p.points)
+        pg.display.flip()
+        randomNum = random.randint(1,11)
 
 pg.quit()
