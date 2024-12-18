@@ -79,9 +79,8 @@ def check_interactions():
         if event.type==pg.KEYDOWN:
             if event.key==pg.K_r:
                 game.reset()
-                for po in p.points:
-                    p.points.clear()
-                    p.fruits.clear()
+                p.points.clear()
+                p.fruits.clear()
                 currentFruit = p.stuff(Density*math.pi*(RADII[0]**2), RADII[0], p.Vec(mouseX,330,0), p.Vec(0,0,0), p.Vec(0,-9.8,0), True, COLORS[0], 0)
         if event.type ==pg.MOUSEBUTTONDOWN:
             if (time.time() - dropTimer < 1):
