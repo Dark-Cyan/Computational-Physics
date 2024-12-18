@@ -7,7 +7,7 @@ t = 0
 dt = 0.01
 
 #Physics Variables
-elasticity = 0
+elasticity = 0.0
 
 # Constants
 COLORS = [
@@ -27,8 +27,11 @@ RADII = [17,25,32,38,50,63,75,87,100,115,135]
 Density = 0.001
 POINTS = [1,3,6,10,15,21,28,36,45,55,66]
 
+#returns the weight of 
 def weight(a):
     return a.m*a.grav
+
+
 
 def handle_fruit_collisions(fruit, list):
     for other_fruit in list:
@@ -47,9 +50,9 @@ def handle_fruit_collisions(fruit, list):
                 list.remove(other_fruit)
                 newFruit = stuff(Density*math.pi*(RADII[fruit.type+1]**2), RADII[fruit.type+1], Vec((fruit.pos.x+other_fruit.pos.x)/2, (fruit.pos.y+other_fruit.pos.y)/2, 0), Vec(0,0,0), Vec(0,-9.8,0), False, COLORS[fruit.type+1], fruit.type+1)
                 continue
-            ví = get2DForces(fruit, other_fruit)
-            fruit.vel += 2 * ví
-            other_fruit.vel += -2 * ví
+            ví1 = get2DForces(fruit, other_fruit)
+            fruit.vel += 2 * ví1
+            other_fruit.vel -= 2 * ví1
 
 def resolve_overlap(fruit, other_fruit):
     """
@@ -66,10 +69,12 @@ def resolve_overlap(fruit, other_fruit):
         fruit.pos -= correction
         other_fruit.pos += correction
 
+#currently deprecated
 def get1DForces(fruit, other_fruit):
     ví = (fruit.m * fruit.vel + other_fruit.m * other_fruit.vel - other_fruit.m * elasticity * (fruit.vel - other_fruit.vel))/(fruit.m + other_fruit.m)
     return ví
 
+#returns the final velocity for fruit
 def get2DForces(fruit, other_fruit):
     relative_position = other_fruit.pos - fruit.pos
     normal = relative_position.norm()
@@ -85,29 +90,30 @@ def get2DForces(fruit, other_fruit):
     vín = (fruit.m * v1n + other_fruit.m * v2n - other_fruit.m * elasticity * (v1n - v2n))/(fruit.m + other_fruit.m)
     return vín
     
-
+#moves objects in list for reps
 def move(list, reps):
     global t
     t += dt
 
     for i in range(reps):
         for fruit in list:
-            if fruit.anchor:
+            if fruit.anchor: #if fruit is anchored, continue
                 continue
-            if fruit.pos.y - fruit.r <= -320:
+            if fruit.pos.y - fruit.r <= -320: #if fruit edge is less than bottom bound, set fruit pos to inside the bounds
                 fruit.pos.y = -320 + fruit.r
                 fruit.vel.y = 0
                 fruit.vel.x *= 0
-            if fruit.pos.x - fruit.r <= -200: 
+            if fruit.pos.x - fruit.r <= -200:  #if fruit edge is less than left bound, reverse x velocity and place inside the bounds
                 fruit.vel.x *= -0.5
                 fruit.pos.x = -200+fruit.r
-            elif fruit.pos.x + fruit.r >= 200:
-                fruit.vel.x *= -1
+            elif fruit.pos.x + fruit.r >= 200: #if fruit edge is more than right bound, reverse x velocity and place inside the bounds
+                fruit.vel.x *= -0.5
                 fruit.pos.x = 200-fruit.r
-            if fruit.vel.mag() >= 50 and fruit.falling:
+            if fruit.vel.mag() >= 50 and fruit.falling: #if speed is greater than 50 and fruit is done falling, slow it down
                   fruit.vel = fruit.vel.norm() * 10
 
-            fruit.acc = weight(fruit)
+            #update fruit 
+            fruit.acc = weight(fruit)/fruit.m
             handle_fruit_collisions(fruit, list)
             fruit.vel += fruit.acc * dt
             fruit.pos += fruit.vel * dt
