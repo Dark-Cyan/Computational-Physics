@@ -15,10 +15,8 @@ class Ball:
         self.acc=Vec(0,0,0)
         self.range=0
 
-test = Ball(45,42,0,10)
-print(test.vel)
-
 launcher = []
+lander = []
 
 repeats = 100
 for i in range(repeats):
