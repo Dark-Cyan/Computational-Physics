@@ -18,6 +18,9 @@ class Ball:
 test = Ball(45,42,0,10)
 print(test.vel)
 
+launcher = []
+
 repeats = 100
 for i in range(repeats):
     ball = Ball(random.uniform(0,90),42,0,0)
+    launcher.append(ball)
