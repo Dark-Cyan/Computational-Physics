@@ -1,6 +1,7 @@
 from vectors import*
 import math
 import pop
+import genetics
 
 #Environmentals
 
@@ -35,6 +36,7 @@ def ground(a):
         a.range=a.pos.x
         pop.lander.append(a)
         pop.launcher.remove(a)
+        genetics.next_gen()
 
 def update(a):
     a.acc = forces(a)/a.m #F = ma

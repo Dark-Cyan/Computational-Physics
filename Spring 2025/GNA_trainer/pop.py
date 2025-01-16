@@ -14,11 +14,12 @@ class Ball:
         self.pos=Vec(0,height,0)
         self.acc=Vec(0,0,0)
         self.range=0
+        self.angle = angle
 
 launcher = []
 lander = []
 
-repeats = 100
+repeats = 1000
 for i in range(repeats):
     ball = Ball(random.uniform(0,90),42,0,0)
     launcher.append(ball)
