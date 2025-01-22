@@ -34,6 +34,7 @@ def ground(a):
     if a.pos.y<0:
         a.pos.y=0
         a.range=a.pos.x
+        a.distance = abs(a.goal - a.range)
         pop.lander.append(a)
         pop.launcher.remove(a)
         genetics.next_gen()

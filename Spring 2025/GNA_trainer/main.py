@@ -10,5 +10,3 @@ while gx.view:
     gx.check_interactions()
     if gx.run:
         px.move(4) 
-        if ge.threshhold:
-            sys.exit()
