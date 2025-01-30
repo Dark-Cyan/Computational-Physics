@@ -6,7 +6,7 @@ import pop
 
 view = True
 run = False
-s=0.1 #how many pixels are in a meter
+s=1 #how many pixels are in a meter
 
 def scale(a):
     return(a*s)
