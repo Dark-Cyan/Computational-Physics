@@ -25,8 +25,9 @@ def forces(a):
 #hitting the ground
 
 def ground(a):
-    if (a.pos.y<0 and a.pos.x <= 100) or (a.pos.y< (a.pos.x - 100) * math.tan(math.radians(25)) and a.pos.x > 100):
+    if (a.pos.y < 0 and (a.pos.x <= 50 or a.pos.x >= 150)) or (a.pos.y < math.sqrt(abs(2500 - (a.pos.x - 100)**2)) and (a.pos.x > 50 and a.pos.x < 150)):
         a.range=a.pos.x
+        a.distance=abs(a.pos - Vec(150,0,0))
         pop.lander.append(a)
         pop.launcher.remove(a)
         genetics.next_gen()
