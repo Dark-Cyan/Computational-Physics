@@ -4,11 +4,13 @@ import random
 
 class Ball:
 
-    def __init__(self, angle, speed, height):
+    def __init__(self, angle, speed, height, fuel):
         self.distance = 100000
         self.maxHeight = 0
-        self.r = 0.08
-        self.m = 15
+        self.r = 0.3
+        self.m = 2000 + fuel
+        self.startFuel = fuel
+        self.fuel = fuel
         self.mC=3e-5
         self.speed = speed
         self.vel=Vec(speed*math.cos(math.radians(angle)),speed*math.sin(math.radians(angle)),0)
@@ -25,16 +27,16 @@ class Ball:
         else:
             self.T = 15.04 - 0.00649 * height
             self.P = 101.29 * ((self.T+273.1)/288.08)**5.256
-        self.C = 0.5
+        self.C = 0.35
         self.p = self.P / (0.2869 * (self.T+273.1))
-        self.dt = 0.0001
+        self.dt = 1
         
         
 
 launcher = []
 lander = []
 
-repeats = 199
+repeats = 200
 for i in range(repeats):
-    ball = Ball(90, random.uniform(1000, 41000), 8848.86)
+    ball = Ball(90, 0, 0, random.uniform(2000, 3000))#random.uniform(0,6163))
     launcher.append(ball)

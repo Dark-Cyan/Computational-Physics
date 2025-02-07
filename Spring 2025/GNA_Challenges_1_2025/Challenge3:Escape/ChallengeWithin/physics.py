@@ -22,8 +22,16 @@ def airspeed(a):
 def drag(a):
     return -0.5*a.p*a.C*math.pi*(a.r**2)*airspeed(a)*airspeed(a).mag() #1/2CApv^2
 
+def thrust(a):
+    if a.fuel >= 30 * a.dt:
+        a.fuel -= 30 * a.dt
+        a.m -= 30 * a.dt
+        return Vec(0,80000,0)
+    else:
+        return Vec(0,0,0)
+
 def forces(a):
-    return weight(a) + drag(a)
+    return weight(a) + drag(a) + thrust(a)
 
 #hitting the ground
 
@@ -36,10 +44,10 @@ def ground(a):
         genetics.next_gen()
 
 def update(a):
-    #print(airspeed(a), -0.5*a.p*a.C*math.pi*(a.r**2), a.pos.y)
-    # print(f"a.p = {a.p}, type: {type(a.p)}")
-    # print(f"a.C = {a.C}, type: {type(a.C)}")
-    # print(f"a.r = {a.r}, type: {type(a.r)}")
+    # print(airspeed(a), -0.5*a.p*a.C*math.pi*(a.r**2), a.pos.y)
+    # print(f"a.weight() = {weight(a)}, type: {type(weight(a))}")
+    # print(f"a.drag() = {drag(a)}, type: {type(drag(a))}")
+    # print(f"a.r = {thrust(a)}, type: {type(thrust(a))}")
     # print(f"a.r**2 = {a.r**2}, type: {type(a.r**2)}")
     a.acc = forces(a)/a.m #F = ma
     a.vel += a.acc * a.dt

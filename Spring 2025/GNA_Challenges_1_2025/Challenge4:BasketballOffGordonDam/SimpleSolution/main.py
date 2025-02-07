@@ -9,4 +9,4 @@ while gx.view:
     gx.render()
     gx.check_interactions()
     if gx.run:
-        px.move(300) 
+        px.move(100) 
