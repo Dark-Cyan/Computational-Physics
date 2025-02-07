@@ -9,7 +9,7 @@ g=Vec(0,-9.8,0) #Newtons/kilogram - this force per unit mass
 p= 1.15
 t = 0
 dt = 0.005
-wind = Vec(14,1,0)
+wind = Vec(0,0,0)
 
 #forces
 
