@@ -16,9 +16,9 @@ def offspring(a, n):
 def next_gen():
     global standarddeviation
     global threshhold
-    if len(pop.lander)==pop.repeats:
+    if len(pop.launcher)==0:
         #pop.lander.sort(key = lambda f: f.range, reverse = True)
-        pop.lander.sort(key = (attrgetter('distance')), reverse = False)
+        pop.lander.sort(key = (attrgetter('speed')), reverse = False)
         print(pop.lander[0].speed, pop.lander[0].range, pop.lander[0].pos.y, pop.lander[0].angle)
         offspring(pop.lander[0],100)
         offspring(pop.lander[1],53)
