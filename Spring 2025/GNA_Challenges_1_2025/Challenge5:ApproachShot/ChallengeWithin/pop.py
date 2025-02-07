@@ -13,7 +13,7 @@ class Ball:
         self.speed = speed
         self.w=Vec(0,0,250)
         self.vel=Vec(self.speed*math.cos(math.radians(angle)),self.speed*math.sin(math.radians(angle)),0)
-        self.pos=Vec(0,126,0)
+        self.pos=Vec(0,0,0)
         self.acc=Vec(0,0,0)
         self.range=0
         self.distance = abs(self.goal - self.range)
