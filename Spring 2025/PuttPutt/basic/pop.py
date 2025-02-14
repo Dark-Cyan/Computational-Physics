@@ -8,15 +8,20 @@ class Ball:
     def __init__(self,velocity, color):
 
         self.pos = Vec(0,0,0)
+        self.distance = 1000
+        self.speed = (velocity.x ** 2 + velocity.y ** 2) ** 0.5
+        self.initVel = velocity
         self.vel = velocity
         self.r = 0.021335
         self.m = 0.045
         self.acc = None
-        self.run = False
         self.color = color
         population.append(self)
 
 population = []
+winners = []
+losers = []
+final = []
 populationSize = 200
 
 for i in range(populationSize):

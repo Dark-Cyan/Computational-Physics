@@ -4,7 +4,7 @@ import pop
 #Physics engine
 
 ##Switches - Booleans##
-#run = False
+run = False
 
 # Constants
 HOLE=Vec(0,5,0)
@@ -32,24 +32,30 @@ def forces(a):
 def sink(a):
     if (a.pos-HOLE).mag() < (0.054-0.032*a.vel.mag()):
         a.pos=HOLE
-        a.run = False
+        a.distance = 0
+        pop.winners.append(a)
+        pop.population.remove(a)
+        #gen.next_gen()
         return True
-
     return False
 
 def stop(a):
     if not sink(a) and a.vel.mag()<0.001:
-        a.vel=Vec(0,0,0)
-        a.run = False
+        a.distance = abs(HOLE - a.pos)
+        pop.losers.append(a)
+        pop.population.remove(a)
+        #gen.next_gen()
         return True
     
     return False
 
 def move(a,n):
-    for i in range(n):
-        if a.run:
+    if run:
+        for i in range(n):
             a.acc=forces(a)/a.m
             a.vel+=a.acc*dt
             a.pos+=a.vel*dt
-            sink(a)
-            stop(a)
+            if (sink(a)):
+                break
+            if (stop(a)):
+                break

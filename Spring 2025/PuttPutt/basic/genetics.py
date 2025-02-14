@@ -2,28 +2,34 @@
 
 import pop
 import random
+from vectors import*
 from operator import attrgetter
 
-standarddeviation = 1
-threshhold =False
+standarddeviation = 0.05
+threshhold = False
 
 def offspring(a, n):
     #I want "n" offspring of object "a"
     for i in range(n):
-        ball = pop.Ball(23,random.gauss(a.speed,standarddeviation), 0, 0)
-        pop.launcher.append(ball)
+        ball = pop.Ball(Vec(random.gauss(a.initVel.x, standarddeviation),random.gauss(a.initVel.y, standarddeviation),0), a.color)
+        pop.population.append(ball)
 
 def next_gen():
     global standarddeviation
     global threshhold
-    if len(pop.lander)==pop.repeats:
+    if len(pop.winners) + len(pop.losers)==pop.populationSize:
+        pop.population.clear()
         #pop.lander.sort(key = lambda f: f.range, reverse = True)
-        pop.lander.sort(key = (attrgetter('distance')), reverse = False)
-        print(pop.lander[0].range, pop.lander[0].speed)
-        offspring(pop.lander[0],499)
-        offspring(pop.lander[1],300)
-        offspring(pop.lander[2],100)
-        offspring(pop.lander[3],100)
-        ball = pop.Ball(23, pop.lander[0].speed, 250, 0)
-        pop.launcher.append(ball)
-        pop.lander.clear()
+        pop.winners.sort(key = (attrgetter('speed')), reverse = False)
+        pop.losers.sort(key = (attrgetter('distance')), reverse = False)
+        pop.final = pop.winners + pop.losers
+        print(pop.final[0].distance, pop.final[0].speed)
+        offspring(pop.final[0],int(pop.populationSize*0.50 - 1))
+        offspring(pop.final[1],int(pop.populationSize*0.20))
+        offspring(pop.final[2],int(pop.populationSize*0.20))
+        offspring(pop.final[3],int(pop.populationSize*0.10))
+        ball = pop.Ball(pop.final[0].initVel, pop.final[0].color)
+        pop.population.append(ball)
+        pop.winners.clear()
+        pop.losers.clear()
+        pop.final.clear()

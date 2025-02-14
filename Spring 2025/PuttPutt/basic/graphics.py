@@ -26,9 +26,8 @@ def background() -> None:
 
 def render() -> None:
     background()
-    for i in range(pop.populationSize):
-        if not px.sink(pop.population[i]):
-            pg.draw.circle(screen, pop.population[i].color,scale(pop.population[i].pos), int(S * pop.population[i].r))
+    for i in range(len(pop.population)):
+        pg.draw.circle(screen, pop.population[i].color,scale(pop.population[i].pos), int(S * pop.population[i].r))
     clock.tick(60)
     pg.display.flip()
 
@@ -39,5 +38,4 @@ def check_interactions() -> None:
             VIEW = False
         elif event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE:
-                for i in range(pop.populationSize):
-                    pop.population[i].run = True
+                px.run = True
