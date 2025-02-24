@@ -17,6 +17,7 @@ class Ball:
         self.acc = None
         self.color = color
         self.familyNum = familyNum
+        self.run = True
 
 class Family:
 
@@ -29,10 +30,11 @@ class Family:
             ball=Ball(random.uniform(lBound, hBound), random.uniform(0.5,3), (self.color), familyNum)
             self.familyMembers.append(ball)
 
-populationSize, families = 200, 10
+populationSize, families = 200, 20
 population = []
 winners = []
 losers = []
+finished = 0
 final = []
 
 2.7

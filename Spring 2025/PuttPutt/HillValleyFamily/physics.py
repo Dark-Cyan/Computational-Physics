@@ -56,13 +56,15 @@ def stop(a):
     if (a.pos-HOLE).mag() < (0.054-0.032*a.vel.mag()):
         a.pos=HOLE
         a.distance = 0
-        #pop.winners.append(a)
+        pop.finished += 1
+        a.run = False
         #pop.population[a.familyNum].remove(a)
         return True
     elif a.vel.mag()<0.001:
         a.vel=Vec(0,0,0)
         a.distance = abs(HOLE - a.pos)
-        #pop.losers.append(a)
+        pop.finished += 1
+        a.run = False
         #pop.population[a.familyNum].remove(a)
         return True
 
@@ -71,7 +73,7 @@ def stop(a):
 
 
 def move(a,n):
-    if run:
+    if run and a.run:
         for i in range(n):
             a.acc=forces(a)/a.m
             a.vel+=a.acc*dt

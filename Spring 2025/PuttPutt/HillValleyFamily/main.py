@@ -2,6 +2,8 @@ import graphics as gx
 import physics as px
 from pop import population
 from pop import losers
+from pop import winners
+import pop
 import genetics as gen
 
 
@@ -12,11 +14,9 @@ while gx.VIEW:
 
     gx.render()
     gx.check_interactions()
-    sum = 0
     for i in population:
-        sum += len(i.familyMembers)
-        for j in i.familyMembers:
-            px.move(j,20)
+        #if isinstance(i, pop.Family) or isinstance(i, ):
+            print("Hello")
+            for j in i.familyMembers:
+                px.move(j,20)
             gen.next_gen() 
-    print(len(population[0].familyMembers))
-    print(sum)
