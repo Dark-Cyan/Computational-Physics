@@ -6,14 +6,14 @@ import random
 from vectors import*
 from operator import attrgetter
 
-standarddeviation = 1
+standarddeviation = 0.5
 threshhold = False
 
-def offspring(a, n, list, fn):
+def offspring(a, n, family, fn):
     #I want "n" offspring of object "a"
     for i in range(n):
         ball = pop.Ball(random.gauss(a.angle, standarddeviation),random.gauss(a.speed, standarddeviation), a.color, fn)
-        list.append(ball)
+        family.familyMembers.append(ball)
 
 def lowestHighest(list):
     minAngle = 180
@@ -32,28 +32,38 @@ def next_gen():
         # pop.losers.sort(key = (attrgetter('distance')), reverse = False)
         fn = 0
         for i in population:
+            sum = 0
+            for j in i.familyMembers:
+                sum+=j.distance
+            print("VVVVV")
+            print("Average:", sum/len(i.familyMembers))
+            print("Past Average:", i.average)
+            if i.average is None:
+                i.average = sum/len(i.familyMembers)
+                continue
+            if sum/len(i.familyMembers) > i.average:
+                population.remove(i)
+                print("HELLO")
+            print(sum/len(i.familyMembers))
+            i.average = sum/len(i.familyMembers)
+
+        for i in population:
             i.familyMembers.sort(key = (attrgetter('distance')), reverse = False)
+            
 
             #family = pop.Family(pop.populationSize/pop.families,, 1, i)
 
-            family = []
-            offspring(i.familyMembers[0],int(pop.populationSize/pop.families*0.50 - 1), family, fn)
-            offspring(i.familyMembers[1],int(pop.populationSize/pop.families*0.20), family, fn)
-            offspring(i.familyMembers[2],int(pop.populationSize/pop.families*0.20), family, fn)
-            offspring(i.familyMembers[3],int(pop.populationSize/pop.families*0.10), family, fn)
+            family = pop.Family(0, 0, 0, i.standardDeviation, fn)
+            offspring(i.familyMembers[0],int(pop.populationSize/pop.families*0.50), family, fn)
+            offspring(i.familyMembers[1],int(pop.populationSize/pop.families*0.50-1), family, fn)
             ball = pop.Ball(i.familyMembers[0].angle, i.familyMembers[0].speed, i.familyMembers[0].color, fn)
-            family.append(ball)
-            print(len(family))
+            family.familyMembers.append(ball)
             newPopulation.append(family)
-            print(len(newPopulation))
             fn += 1
-        print("Pop length:", len(population))
         pop.population.clear()
-        print("Pop length:", len(population))
         pop.population += newPopulation
         # pop.population.clear()
         # pop.population.append(newPopulation)
-        print("Pop length:", len(population))
 
 
 

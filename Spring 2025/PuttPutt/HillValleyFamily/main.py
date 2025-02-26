@@ -1,8 +1,6 @@
 import graphics as gx
 import physics as px
 from pop import population
-from pop import losers
-from pop import winners
 import pop
 import genetics as gen
 
@@ -15,8 +13,7 @@ while gx.VIEW:
     gx.render()
     gx.check_interactions()
     for i in population:
-        #if isinstance(i, pop.Family) or isinstance(i, ):
-            print("Hello")
+        if isinstance(i, pop.Family):
             for j in i.familyMembers:
                 px.move(j,20)
             gen.next_gen() 

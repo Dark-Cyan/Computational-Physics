@@ -29,8 +29,9 @@ class Family:
         for i in range(self.size):
             ball=Ball(random.uniform(lBound, hBound), random.uniform(0.5,3), (self.color), familyNum)
             self.familyMembers.append(ball)
+        self.average = None
 
-populationSize, families = 200, 20
+populationSize, families = 100, 25
 population = []
 winners = []
 losers = []
@@ -40,7 +41,7 @@ final = []
 2.7
 
 for i in range(0,180,int(180/families)):
-    family = Family(populationSize/families,i,i+(180/families), 1, i)
+    family = Family(populationSize/families,i,i+(180/families), 0.5, i)
     population.append(family)
 
     # family = []
