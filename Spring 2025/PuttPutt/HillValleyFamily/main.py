@@ -12,6 +12,7 @@ while gx.VIEW:
 
     gx.render()
     gx.check_interactions()
+    count = 0
     for i in population:
         if isinstance(i, pop.Family):
             for j in i.familyMembers:

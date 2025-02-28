@@ -22,6 +22,7 @@ class Ball:
 class Family:
 
     def __init__(self, size, lBound, hBound, standardDeviation, familyNum):
+        self.fn = familyNum
         self.size = int(size)
         self.familyMembers = []
         self.standardDeviation = standardDeviation
@@ -31,7 +32,7 @@ class Family:
             self.familyMembers.append(ball)
         self.average = None
 
-populationSize, families = 100, 25
+populationSize, families = 200, 25
 population = []
 winners = []
 losers = []
@@ -41,7 +42,7 @@ final = []
 2.7
 
 for i in range(0,180,int(180/families)):
-    family = Family(populationSize/families,i,i+(180/families), 0.5, i)
+    family = Family(populationSize/families,i,i+(180/families), 10, i)
     population.append(family)
 
     # family = []

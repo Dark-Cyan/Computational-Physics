@@ -6,13 +6,10 @@ import random
 from vectors import*
 from operator import attrgetter
 
-standarddeviation = 0.5
-threshhold = False
-
-def offspring(a, n, family, fn):
+def offspring(a, n, family, SD, fn):
     #I want "n" offspring of object "a"
     for i in range(n):
-        ball = pop.Ball(random.gauss(a.angle, standarddeviation),random.gauss(a.speed, standarddeviation), a.color, fn)
+        ball = pop.Ball(random.gauss(a.angle, SD),random.gauss(a.speed, SD), a.color, fn)
         family.familyMembers.append(ball)
 
 def lowestHighest(list):
@@ -22,7 +19,7 @@ def lowestHighest(list):
 def next_gen():
     global standarddeviation
     global threshhold
-    if pop.finished==pop.populationSize:
+    if pop.finished>=pop.populationSize:
         pop.finished = 0
         newPopulation = []
         # pop.population.clear()
@@ -31,21 +28,26 @@ def next_gen():
         # pop.winners.sort(key = (attrgetter('speed')), reverse = False)
         # pop.losers.sort(key = (attrgetter('distance')), reverse = False)
         fn = 0
-        for i in population:
-            sum = 0
-            for j in i.familyMembers:
-                sum+=j.distance
-            print("VVVVV")
-            print("Average:", sum/len(i.familyMembers))
-            print("Past Average:", i.average)
-            if i.average is None:
-                i.average = sum/len(i.familyMembers)
-                continue
-            if sum/len(i.familyMembers) > i.average:
-                population.remove(i)
-                print("HELLO")
-            print(sum/len(i.familyMembers))
-            i.average = sum/len(i.familyMembers)
+
+        # for i in population:
+        #     sum = 0
+        #     for j in i.familyMembers:
+        #         sum+=j.distance
+        #     print("VVVVV")
+        #     print("Average:", sum/len(i.familyMembers))
+        #     print("Past Average:", i.average)
+        #     if i.average is None:
+        #         i.average = sum/len(i.familyMembers)
+        #         continue
+        #     if sum/len(i.familyMembers) > i.average:
+        #         population.remove(i)
+        #         # print("HELLO")
+        #     print(sum/len(i.familyMembers))
+        #     i.average = sum/len(i.familyMembers)
+        # print(len(population))
+        # pop.populationSize = len(population)
+
+        
 
         for i in population:
             i.familyMembers.sort(key = (attrgetter('distance')), reverse = False)
@@ -53,11 +55,12 @@ def next_gen():
 
             #family = pop.Family(pop.populationSize/pop.families,, 1, i)
 
-            family = pop.Family(0, 0, 0, i.standardDeviation, fn)
-            offspring(i.familyMembers[0],int(pop.populationSize/pop.families*0.50), family, fn)
-            offspring(i.familyMembers[1],int(pop.populationSize/pop.families*0.50-1), family, fn)
+            family = pop.Family(0, 0, 0, i.standardDeviation * 0.75, fn)
+            offspring(i.familyMembers[0],int(pop.populationSize/pop.families*0.50), family, family.standardDeviation, fn)
+            offspring(i.familyMembers[1],int(pop.populationSize/pop.families*0.50-1), family, family.standardDeviation, fn)
             ball = pop.Ball(i.familyMembers[0].angle, i.familyMembers[0].speed, i.familyMembers[0].color, fn)
             family.familyMembers.append(ball)
+            family.average=i.average
             newPopulation.append(family)
             fn += 1
         pop.population.clear()
@@ -65,6 +68,16 @@ def next_gen():
         # pop.population.clear()
         # pop.population.append(newPopulation)
 
+        bestGroup = 0
+        lowAvg = 1000
+        for i in population:
+            average = 0
+            for j in i.familyMembers:
+                average += j.distance
+            if (average < lowAvg):
+                bestGroup = i.fn
+                lowAvg = average
+        print("Best Group:", population[bestGroup].color, '\t', "Distance:", lowAvg)
 
 
 
