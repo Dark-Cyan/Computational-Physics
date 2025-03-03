@@ -56,6 +56,7 @@ def next_gen():
             #family = pop.Family(pop.populationSize/pop.families,, 1, i)
 
             family = pop.Family(0, 0, 0, i.standardDeviation * 0.75, fn)
+            family.color = i.color
             offspring(i.familyMembers[0],int(pop.populationSize/pop.families*0.50), family, family.standardDeviation, fn)
             offspring(i.familyMembers[1],int(pop.populationSize/pop.families*0.50-1), family, family.standardDeviation, fn)
             ball = pop.Ball(i.familyMembers[0].angle, i.familyMembers[0].speed, i.familyMembers[0].color, fn)
@@ -63,21 +64,36 @@ def next_gen():
             family.average=i.average
             newPopulation.append(family)
             fn += 1
-        pop.population.clear()
-        pop.population += newPopulation
-        # pop.population.clear()
-        # pop.population.append(newPopulation)
 
         bestGroup = 0
         lowAvg = 1000
+        bestInd = 0
+        bestIndGroup = 0
+        indSpeed = 1000
+        indDist = 1000
+
         for i in population:
             average = 0
+            count = 0
             for j in i.familyMembers:
                 average += j.distance
+                if (j.distance < indDist or (j.distance == indDist and j.speed < indSpeed)):
+                    bestInd = count
+                    bestIndGroup = i.fn
+                    indSpeed = j.speed
+                    indDist = j.distance
+                count += 1
             if (average < lowAvg):
                 bestGroup = i.fn
                 lowAvg = average
         print("Best Group:", population[bestGroup].color, '\t', "Distance:", lowAvg)
+        print("Best Individual:", population[bestIndGroup].familyMembers[bestInd].color, '\t', "Distance:", indDist, '\t', "Speed:", indSpeed, '\t', "Angle:", population[bestIndGroup].familyMembers[bestInd].angle)
+        print("__________________________________________________________________________________________")
+
+        pop.population.clear()
+        pop.population += newPopulation
+        # pop.population.clear()
+        # pop.population.append(newPopulation)
 
 
 
