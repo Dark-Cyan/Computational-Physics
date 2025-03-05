@@ -18,6 +18,9 @@ class Ball:
         self.color = color
         self.familyNum = familyNum
         self.run = True
+        self.score=0
+        self.bounce=0
+        self.visible=True
 
 class Family:
 
