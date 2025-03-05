@@ -50,7 +50,7 @@ def next_gen():
         
 
         for i in population:
-            i.familyMembers.sort(key = (attrgetter('distance')), reverse = False)
+            i.familyMembers.sort(key = (attrgetter('score')), reverse = False)
             
 
             #family = pop.Family(pop.populationSize/pop.families,, 1, i)

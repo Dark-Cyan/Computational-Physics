@@ -90,7 +90,7 @@ class Vec:
         rad = math.radians(theta_degrees)
         x_new = self.x * math.cos(rad) - self.y * math.sin(rad)
         y_new = self.x * math.sin(rad) + self.y * math.cos(rad)
-        self.x, self.y = x_new, y_new
+        return Vec(x_new,y_new,0)
 
 
     def mag(self):

@@ -35,7 +35,7 @@ class Family:
             self.familyMembers.append(ball)
         self.average = None
 
-populationSize, families = 200, 25
+populationSize, families = 200, 10
 population = []
 winners = []
 losers = []
