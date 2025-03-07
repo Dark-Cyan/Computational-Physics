@@ -45,5 +45,5 @@ final = []
 2.7
 
 for i in range(0,180,int(180/families)):
-    family = Family(populationSize/families,90,90,4,int(i/int(180/families)))#i,i+(180/families), 10, int(i/int(180/families)))
+    family = Family(populationSize/families,i,i+(180/families), 10, int(i/int(180/families)))
     population.append(family)
