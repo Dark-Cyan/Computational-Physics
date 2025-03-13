@@ -5,22 +5,43 @@ import random
 from vectors import*
 from operator import attrgetter
 
-standardDeviation = 10
+standardDeviation = 5
 threshhold = False
+
+newPopulation = []
 
 def offspring(a, n):
     #I want "n" offspring of object "a"
     for i in range(n):
-        ball = pop.Ball(Vec(random.gauss(a.initVel.x, standarddeviation),random.gauss(a.initVel.y, standarddeviation),0), a.color)
+        color = (min(random.gauss(a.color[0], standardDeviation), 255), min(random.gauss(a.color[1], standardDeviation), 255), min(random.gauss(a.color[2], standardDeviation), 255))
+        ball = pop.Ball(Vec(random.gauss(a.ivel.x, standardDeviation),random.gauss(a.ivel.y, standardDeviation),0), color)
+        family = pop.Family(pop.children, ball, 0.05)
+        newPopulation.append(family)
+
         
 
 def next_gen():
-    global standarddeviation
+    global standardDeviation
     global threshhold
     if pop.finished == pop.families + pop.families * pop.children:
+
+        for i in pop.population:
+            i.determineScore()
+        pop.population.sort(key = (attrgetter('score')), reverse = False)
+
         offspring(pop.population[0].parent, int(pop.families*0.50 - 1))
-        offspring(pop.final[1],int(pop.populationSize*0.20))
-        offspring(pop.final[2],int(pop.populationSize*0.20))
-        ball = pop.Ball(pop.final[0].initVel, pop.final[0].color)
-        pop.population.append(ball)
+        offspring(pop.population[1].parent, int(pop.families*0.3))
+        offspring(pop.population[2].parent, int(pop.families*0.2))
+        ball = pop.Ball(pop.population[0].parent.ivel, pop.population[0].parent.color)
+        family = pop.Family(pop.children, ball, 0.05)
+        newPopulation.append(family)
+
+        print("Best Group:", pop.population[0].parent.color, '\t', "Score:", pop.population[0].parent.score)
+        print("Best Individual:", pop.population[0].parent.color, '\t', "Distance:", pop.population[0].parent.distance, '\t', "Vx:", pop.population[0].parent.ivel.x, '\t', "Vy:", pop.population[0].parent.ivel.y)
+
+        pop.population.clear()
+        pop.population += newPopulation
+        pop.finished = 0
+
         standardDeviation *= 0.75
+        newPopulation.clear()

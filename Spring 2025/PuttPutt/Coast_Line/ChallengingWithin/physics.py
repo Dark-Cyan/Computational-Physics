@@ -56,19 +56,33 @@ def stop(a):
         a.visible=False
         a.run = False
         pop.finished += 1
+        a.distance = 100000
         a.score = 1000 - abs(a.ivel)
     
     elif dist_hole < (0.054 - 0.032 * vmag):
         a.visible=False
         a.run = False
         pop.finished += 1
+        a.distance = dist_hole
         a.score = abs(a.ivel)
 
     elif vmag < 0.01:
         a.vel=Vec(0,0,0)
         a.run = False
         pop.finished += 1
+        a.distance = dist_hole
         a.score = dist_hole + abs(a.ivel)
+        if a.pos.x >= WALL_T.x :
+            a.score += 250
+        if a.pos.y <= WALL_T.y:
+            a.score += 250
+    
+    elif dist_hole > 4.5:
+        a.vel=Vec(0,0,0)
+        a.run = False
+        pop.finished += 1
+        a.distance = dist_hole
+        a.score = 1000 + abs(a.ivel)
 
 
 def detect_wall(a):

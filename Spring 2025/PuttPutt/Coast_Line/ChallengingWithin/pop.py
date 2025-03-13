@@ -17,6 +17,7 @@ class Ball:
 
         #Genetic Algorithm Variables
         self.score=0
+        self.distance = 1000
         self.bounce=0
 
         #Graphics Variables
@@ -37,9 +38,19 @@ class Family:
         self.size = children + 1
         self.standardDeviation = standardDeviation
         self.parent = parent
+        self.score = 10000
+        self.distance = 10000
         for i in range(children):
             ball = Ball(Vec(random.gauss(parent.ivel.x, standardDeviation), random.gauss(parent.ivel.y, standardDeviation), 0), parent.color)
             self.familyMembers.append(ball)
+
+    def determineScore(self):
+        self.score = 0
+        self.distance = 0
+        for i in self.familyMembers:
+            self.score += i.score
+            self.distance += i.distance
+
 
 #Population Variables
 families = 10
@@ -48,6 +59,6 @@ population = []
 finished = 0
 
 for i in range(families):
-    ball=Ball(Vec(random.uniform(-2.5, 2.5),random.uniform(0.5, 2.5), 0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
+    ball=Ball(Vec(random.uniform(-3.5, 3.5),random.uniform(0.5, 3.5), 0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
     family = Family(children, ball, 0.05)
     population.append(family)
