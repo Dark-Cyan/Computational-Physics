@@ -36,7 +36,7 @@ def next_gen():
         family = pop.Family(pop.children, ball, 0.05)
         newPopulation.append(family)
 
-        print("Best Group:", pop.population[0].parent.color, '\t', "Score:", pop.population[0].parent.score)
+        print("Best Group:", pop.population[0].parent.color, '\t', "Score:", pop.population[0].parent.score, '\t', "Distance:", (pop.population[0].distance/201))
         print("Best Individual:", pop.population[0].parent.color, '\t', "Distance:", pop.population[0].parent.distance, '\t', "Vx:", pop.population[0].parent.ivel.x, '\t', "Vy:", pop.population[0].parent.ivel.y)
 
         pop.population.clear()
