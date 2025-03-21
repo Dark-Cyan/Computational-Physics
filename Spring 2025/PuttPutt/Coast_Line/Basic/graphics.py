@@ -3,7 +3,7 @@ import pop
 import physics as px
 from vectors import Vec
 
-
+ 
 # Global configuration
 VIEW = True
 S = 100  # how many pixels per meter
@@ -28,8 +28,11 @@ def background() -> None:
 
 def render() -> None:
     background()
-    if pop.ball.visible:
-        pg.draw.circle(screen, (255, 255, 255), scale(pop.ball.pos), int(S * pop.ball.r))
+    for i in range(len(pop.population)):
+        if isinstance(pop.population[i], pop.Family):
+            for j in range(len(pop.population[i].familyMembers)):
+                if pop.population[i].familyMembers[j].visible == True:
+                    pg.draw.circle(screen, pop.population[i].familyMembers[j].color,scale(pop.population[i].familyMembers[j].pos), int(S * pop.population[i].familyMembers[j].r))
     clock.tick(60)
     pg.display.flip()
 

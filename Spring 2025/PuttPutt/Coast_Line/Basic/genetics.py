@@ -13,7 +13,7 @@ newPopulation = []
 def offspring(a, n):
     #I want "n" offspring of object "a"
     for i in range(n):
-        color = (max(min(random.gauss(a.color[0], standardDeviation), 255), 0), max(min(random.gauss(a.color[1], standardDeviation), 255), 0), max(min(random.gauss(a.color[2], standardDeviation), 255), 0))
+        color = (min(random.gauss(a.color[0], standardDeviation), 255), min(random.gauss(a.color[1], standardDeviation), 255), min(random.gauss(a.color[2], standardDeviation), 255))
         ball = pop.Ball(Vec(random.gauss(a.ivel.x, standardDeviation),random.gauss(a.ivel.y, standardDeviation),0), color)
         family = pop.Family(pop.children, ball, 0.05)
         newPopulation.append(family)
@@ -43,5 +43,5 @@ def next_gen():
         pop.population += newPopulation
         pop.finished = 0
 
-        standardDeviation *= 0.95
+        standardDeviation *= 0.75
         newPopulation.clear()
