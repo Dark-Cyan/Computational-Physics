@@ -24,45 +24,45 @@ def friction(a):
     except ValueError:
         return Vec(0, 0, 0)
 
-
+ 
 def forces(a):
     return friction(a)
 
 def stop(a):
-    global run
+    dist_hole = (a.pos - HOLE).mag()
     #sink
     if (a.pos-HOLE).mag() < (0.054-0.032*a.vel.mag()):
-        a.pos = HOLE
-        a.vel = Vec(0,0,0)
         a.visible=False
         a.run = False
-        a.distance = 0
         pop.finished += 1
-        a.score = a.speed
-        return True
+        a.distance = dist_hole
+        a.score = abs(a.ivel)
     
     elif a.pos.y>5.25:
         a.run = False
         a.visible=False
-        a.distance = 1000
-        a.vel = Vec(0,0,0)
         pop.finished += 1
-        a.score = a.distance + a.speed
-        return True
+        a.distance = 100000
+        a.score = 1000 + abs(a.ivel)
         
     elif a.vel.mag()<0.001:
         a.vel=Vec(0,0,0)
         a.run = False
         pop.finished += 1
-        a.distance = abs(a.pos - HOLE)
-        a.score = a.distance + a.speed
-        return True
+        a.distance = dist_hole
+        a.score = dist_hole + abs(a.ivel)
+
+    elif abs(a.pos.x) > 3:
+        a.vel=Vec(0,0,0)
+        a.run = False
+        pop.finished += 1
+        a.distance = dist_hole
+        a.score = 1000 + abs(a.ivel)
 
 def move(a,n):
-    if run and a.run:
-        for i in range(n):
+    for i in range(n):
+        if run and a.run:
             a.acc=forces(a)/a.m
             a.vel+=a.acc*dt
             a.pos+=a.vel*dt
-            if (stop(a)):
-                break
+            stop(a)

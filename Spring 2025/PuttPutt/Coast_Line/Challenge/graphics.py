@@ -3,7 +3,7 @@ import pop
 import physics as px
 from vectors import Vec
 
-
+ 
 # Global configuration
 VIEW = True
 S = 100  # how many pixels per meter
