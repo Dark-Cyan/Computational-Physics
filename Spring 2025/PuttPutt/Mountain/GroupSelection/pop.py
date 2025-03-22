@@ -41,7 +41,8 @@ class Family:
         self.score = 10000
         self.distance = 10000
         for i in range(children):
-            ball = Ball(Vec(random.gauss(parent.ivel.x, standardDeviation), random.gauss(parent.ivel.y, standardDeviation), 0), parent.color)
+            ball = Ball(Vec(parent.ivel.x, parent.ivel.y, 0), parent.color)
+            #Ball(Vec(random.gauss(parent.ivel.x, standardDeviation), random.gauss(parent.ivel.y, standardDeviation), 0), parent.color)
             self.familyMembers.append(ball)
 
     def determineScore(self):
@@ -53,12 +54,16 @@ class Family:
 
 
 #Population Variables
-families = 200
-children = 0
+families = 10
+children = 100
 population = []
 finished = 0
 
-for i in range(families):
-    ball=Ball(Vec(random.uniform(-3.5, 3.5),random.uniform(0.5, 3.5), 0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
+for i in range(families - 1):
+    ball=Ball(Vec(random.uniform(-12, 2),random.uniform(3.5, 7), 0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
     family = Family(children, ball, 0.05)
     population.append(family)
+
+ball=Ball(Vec(3.06010084475735, 6.62292361663915, 0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
+family = Family(children, ball, 0.05)
+population.append(family)

@@ -85,35 +85,35 @@ def stop(a):
     dist_hole = (a.pos - HOLE).mag()
 
     if (a.pos-HOLE).mag() < (0.054-0.032*a.vel.mag()):
+        a.pos = HOLE
         a.visible=False
         a.run = False
-        pop.finished += 1
         a.distance = 0
-        a.score = 0#abs(a.ivel)
+        pop.finished += 1
+        a.score = a.speed
+        return True
 
     elif a.vel.mag()<0.01 and a.acc.mag()<0.6:
+        a.vel=Vec(0,0,0)
         a.run = False
         pop.finished += 1
         a.distance = dist_hole
-        a.score = dist_hole# + abs(a.ivel)
-        if a.pos.x >= -0.95:
-            a.score += 750
-        #speedDif(a)
+        a.score = a.distance + a.speed
+        past_wall(a)
+        return True
     
     elif abs(a.pos.x) > 3 or a.pos.y < -1 or a.pos.y > 7:
-        
         a.run = False
         pop.finished += 1
         a.distance = dist_hole
-        a.score = dist_hole + abs(a.vel) * 3 + 5# + abs(a.ivel)
-        if a.pos.x >= -0.95:
-            a.score += 750
-        #speedDif(a)
+        a.score = dist_hole + a.speed + abs(a.vel) * 3
+        a.vel=Vec(0,0,0)
+        past_wall(a)
+        return True
 
-def speedDif(a):
-    hole = HOLE - a.pos
-
-    a.score += (abs(math.degrees(math.atan2(a.vel.y, a.vel.x)) - math.degrees(math.atan2(hole.y, hole.x))))/10
+def past_wall(a):
+    if a.pos.x >= -0.95:
+        a.score += 1000
 
 def edge(a,edge):
     cir_norm=(a.pos-edge).norm()
@@ -157,7 +157,6 @@ def collision(a,wall_norm):
     Pspeed=a.vel.dot(cWALLnorm)
     bounce=2*speedloss*Pspeed*cWALLnorm
     a.vel-=bounce
-    a.bounce += 1
 
 
 def detect_walls(a):
@@ -165,10 +164,12 @@ def detect_walls(a):
     detect_Lwall(a) 
 
 def move(a,n):
+    global run
     for i in range(n):
         if run and a.run:
             a.acc=forces(a)/a.m
             a.vel+=a.acc*dt
             a.pos+=a.vel*dt
             detect_walls(a)
-            stop(a)
+            if (stop(a)):
+                break

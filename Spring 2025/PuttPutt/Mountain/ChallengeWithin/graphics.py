@@ -3,7 +3,6 @@ import pop
 import physics as px
 from vectors import Vec
 import random
-import genetics as gen
 
 # Global configuration
 VIEW = True
@@ -99,14 +98,14 @@ def background() -> None:
     ))
 
 def render() -> None:
-    background() 
+    background()
     for i in range(len(pop.population)):
         if isinstance(pop.population[i], pop.Family):
             for j in range(len(pop.population[i].familyMembers)):
                 if pop.population[i].familyMembers[j].visible == True:
                     pg.draw.circle(screen, pop.population[i].familyMembers[j].color,scale(pop.population[i].familyMembers[j].pos), int(S * pop.population[i].familyMembers[j].r))
     clock.tick(60)
-    pg.display.flip()
+    pg.display.flip() 
 
 def check_interactions() -> None:
     global VIEW
@@ -116,6 +115,3 @@ def check_interactions() -> None:
         elif event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE:
                 px.run = True
-            elif event.key == pg.K_UP:
-                gen.standardDeviation += 3
-                print("MORE GENETIC VARIATION:", gen.standardDeviation)
