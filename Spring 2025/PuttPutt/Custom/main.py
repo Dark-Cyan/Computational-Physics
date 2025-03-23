@@ -9,4 +9,4 @@ while gx.VIEW:
 
     gx.render()
     gx.check_interactions()
-    px.move(pop.ball,10) 
+    px.move(pop.ball,10)  

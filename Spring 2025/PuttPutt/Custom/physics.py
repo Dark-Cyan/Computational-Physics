@@ -11,7 +11,7 @@ run = False
 
 #HOLE
 
-HOLE=Vec(0,5,0)
+HOLE=Vec(0,-0.8,0)
 
 #HILLS
 
@@ -30,16 +30,20 @@ for i in range(-3,4,1):
 
 OUT=Vec(0,0,1)
 
+WALL_B= Vec(-3,-5,0)
+WALL_T=Vec(-3,1,0)
+WALL_length=(WALL_B-WALL_T).mag()
+
 #right wall
-TRWALL=Vec(3,7,0)
+TRWALL=Vec(2.5,7,0)
 TRWALL_R=0.05
-BRWALL=Vec(3,-1,0)
-RWALL_B= Vec(2.95,-1,0)
-RWALL_T=Vec(2.95,7,0)
+BRWALL=Vec(2.5,-1,0)
+RWALL_B= Vec(2.45,-1,0)
+RWALL_T=Vec(2.45,7,0)
 RWALL_length=(TRWALL-BRWALL).mag()
 RWALL_norm1= (RWALL_T-RWALL_B).cross(OUT).norm()
 RWALL_norm2= (RWALL_B-RWALL_T).cross(OUT).norm()
-
+ 
 #left wall
 
 TLWALL=Vec(-2.95,7,0)
@@ -69,7 +73,7 @@ spray=0
 cor,cor_range=0.7,0
 
 t=0
-dt=0.001
+dt=0.0006
 
 # Forces
 
@@ -107,6 +111,33 @@ def forces(a):
     return friction(a)+hill_slope(a)+pinball_slope(a)
 
 #WALL INFORMATION
+
+def detect_wall(a):
+
+    #d = (a.pos - WALL_T).mag() + (a.pos - WALL_B).mag()
+    #if d < WALL_length + 0.05:
+
+    #GAME BOUNDS
+    if a.pos.x >= 2.95 or a.pos.x <= -2.95:
+        print("HELP ME")
+        a.bounce -= 10
+        a.pos -= a.vel * dt
+        a.vel.x *= -0.95
+    if a.pos.y >= 6.95:
+        print("YAY ME")
+        a.bounce -= 10
+        a.pos -= a.vel * dt
+        a.vel.y *= -0.95
+    
+    #LAUNCH WALL
+    if (a.pos.y <= 5.3 and a.pos.y >= -1 and a.pos.x - a.r <= 2.6 and a.pos.x + a.r >= 2.55):
+        print("THE HUZZ")
+        a.bounce -= 10
+        a.pos -= a.vel * dt
+        a.vel.x *= -0.95
+
+    #if (a.pos.x >= -2.9 and a.pos.x <= -0.2 and a.pos.y)
+
 
 def edge(a,edge):
     cir_norm=(a.pos-edge).norm()
@@ -178,5 +209,5 @@ def move(a,n):
             a.acc=forces(a)/a.m
             a.vel+=a.acc*dt
             a.pos+=a.vel*dt
-            detect_walls(a)
+            detect_wall(a)
             stop(a)

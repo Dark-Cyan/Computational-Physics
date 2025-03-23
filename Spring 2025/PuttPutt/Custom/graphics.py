@@ -27,10 +27,10 @@ def background() -> None:
 
     # Draws the background and the hole.
     screen.fill((60, 160, 80))
-    pg.draw.circle(screen, (0, 0, 0), scale(px.HOLE), int(S * 0.054))
-    for hill in px.HILLS:
-        pg.draw.circle(screen, (66, 176, 88), scale(hill), int(S * px.HILL_R))
-    border_color = (120, 120, 120)
+    # pg.draw.circle(screen, (0, 0, 0), scale(px.HOLE), int(S * 0.054))
+    # for hill in px.HILLS:
+    #     pg.draw.circle(screen, (66, 176, 88), scale(hill), int(S * px.HILL_R))
+    # border_color = (120, 120, 120)
 
     #WALL INFORMATION
     # pg.draw.rect(screen, border_color, (
@@ -61,6 +61,21 @@ def background() -> None:
 
     pg.draw.arc(screen, (0, 0, 0), (445, 10, 145, 145), 0, math.pi/2) #Top Right Curve
     pg.draw.arc(screen, (0, 0, 0), (10, 10, 145, 145), math.pi/2, math.pi) #Top Left Curve
+
+    pg.draw.polygon(screen, (0, 0, 0), [(10, 740),(10,790),(280,790)]) #Bottom Left Triangle
+    pg.draw.polygon(screen, (0, 0, 0), [(550, 740),(550,790),(280,790)]) #Bottom Right Triangle
+
+    #FLIPPERS
+    pg.draw.lines(screen, (0, 0, 0), False, [(60, 570), (60, 670), (180, 700)]) #Left Guide
+    pg.draw.lines(screen, (0, 0, 0), False, [(500, 570), (500, 670), (380, 700)]) #Right Guide
+    pg.draw.polygon(screen, (0, 0, 0), [(180, 700), (260, 720), (180, 740)]) #Left Flipper
+    pg.draw.polygon(screen, (0, 0, 0), [(380, 700), (300, 720), (380, 740)]) #Right Flipper
+
+    #BUMPERS
+    pg.draw.circle(screen, (0, 0, 0), (280, 400), 50) #Center Circle
+    pg.draw.polygon(screen, (0, 0, 0), [(90, 570), (90, 640), (180, 670)]) #Left Bumper
+    pg.draw.polygon(screen, (0, 0, 0), [(470, 570), (470, 640), (380, 670)]) #Left Bumper
+
 
 def render() -> None:
     background()
