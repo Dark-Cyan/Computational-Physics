@@ -12,7 +12,7 @@ winners = []
 def next_gen():
     if pop.finished == pop.families + pop.families * pop.children:
         for i in pop.population:
-            i.sort(key = (attrgetter('score')), reverse = False)
+            i.familyMembers.sort(key = (attrgetter('score')), reverse = False) 
             if i.familyMembers[0].score==0:
                 winners.append(i.familyMembers[0])
                 ball=pop.Ball(Vec(random.uniform(-5, 5),random.uniform(0.5, 5), 0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
@@ -20,7 +20,8 @@ def next_gen():
                 newPopulation.append(family)
                 continue
             standardDeviation = i.familyMembers[0].distance
-            family = pop.Family(pop.children, i.familyMembers[0], standardDeviation)
+            ball=pop.Ball(i.familyMembers[0].ivel, i.familyMembers[0].color)
+            family=pop.Family(pop.children, ball, standardDeviation)
             newPopulation.append(family)
 
         print("-----------------------------------------------------------------------------")
