@@ -5,7 +5,7 @@ import random
 from vectors import*
 from operator import attrgetter
 
-standardDeviation = 2
+standardDeviation = 5
 threshhold = False
 
 newPopulation = []
