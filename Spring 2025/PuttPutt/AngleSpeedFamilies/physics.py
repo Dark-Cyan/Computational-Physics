@@ -14,7 +14,7 @@ run = False
 HOLE=Vec(0,5,0)
 
 #HILLS
-
+ 
 HILLS=[]
 HILL_R=0.4
 
@@ -71,23 +71,30 @@ def stop(a):
     vmag = a.vel.mag()
     
     if dist_hole < (0.054 - 0.032 * vmag):
+        a.pos = HOLE
         a.visible=False
         a.run = False
-        pop.finished += 1
         a.distance = 0
-        a.score = 0
+        pop.finished += 1
+        a.score = a.speed
+        return True
  
     elif vmag < 0.01 and a.acc.mag()<0.6:
+        a.vel=Vec(0,0,0)
         a.run = False
         pop.finished += 1
         a.distance = dist_hole
-        a.score = dist_hole
-
+        a.score = a.distance# + a.speed
+        return True
+    
     elif abs(a.pos.x) > 3 or a.pos.y < -1 or a.pos.y > 7:
         a.run = False
         pop.finished += 1
         a.distance = dist_hole
-        a.score = dist_hole + abs(a.vel) * 3
+        a.score = dist_hole + a.speed + abs(a.vel) * 3
+        a.vel=Vec(0,0,0)
+        return True
+
 
 def move(a,n):
     for i in range(n):
@@ -95,4 +102,5 @@ def move(a,n):
             a.acc=forces(a)/a.m
             a.vel+=a.acc*dt
             a.pos+=a.vel*dt
-            stop(a)
+            if (stop(a)):
+                break

@@ -3,47 +3,54 @@
 from vectors import*
 import random
 
+
 class Ball:
 
-    def __init__(self, angle, speed, color, familyNum):
+    def __init__(self,velocity,color):
 
+        #Physics Variables
         self.pos = Vec(0,0,0)
-        self.distance = 1000
-        self.speed = speed
-        self.angle = angle
-        self.vel = Vec(speed*math.cos(math.radians(angle)),speed*math.sin(math.radians(angle)),0)
+        self.vel = velocity
+        self.ivel=velocity
         self.r = 0.021335
         self.m = 0.045
         self.acc = None
-        self.color = color
-        self.familyNum = familyNum
-        self.run = True
+
+        #Genetic Algorithm Variables
         self.score=0
+        self.distance = 1000
         self.bounce=0
+
+        #Graphics Variables
+        self.color = color
         self.visible=True
+
+        #Misc
+        self.run = True
+    
+    def __repr__(self):
+
+        return f"Ball - Vx: {self.ivel.x}, Vy: {self.ivel.y}"
 
 class Family:
 
-    def __init__(self, size, lBound, hBound, standardDeviation, familyNum):
-        self.fn = familyNum
-        self.size = int(size)
+    def __init__(self, children, parent, standardDeviation):
+
         self.familyMembers = []
+        self.familyMembers.append(parent)
+        self.size = children + 1
         self.standardDeviation = standardDeviation
-        self.color = (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1))
-        for i in range(self.size):
-            ball=Ball(random.uniform(lBound, hBound), random.uniform(0.5,8), (self.color), familyNum)
+        for i in range(children):
+            ball = Ball(Vec(random.gauss(parent.ivel.x, standardDeviation), random.gauss(parent.ivel.y, standardDeviation), 0), parent.color)
             self.familyMembers.append(ball)
-        self.average = None
 
-populationSize, families = 200, 10
+#Population Variables
+families = 10
+children = 10
 population = []
-winners = []
-losers = []
 finished = 0
-final = []
 
-2.7
-
-for i in range(0,180,int(180/families)):
-    family = Family(populationSize/families,i,i+(180/families), 10, int(i/int(180/families)))
+for i in range(families):
+    ball=Ball(Vec(random.uniform(-5, 5),random.uniform(0.5, 5), 0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
+    family = Family(children, ball, 5)
     population.append(family)
