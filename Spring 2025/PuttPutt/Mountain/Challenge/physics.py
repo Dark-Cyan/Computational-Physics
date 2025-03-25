@@ -89,22 +89,20 @@ def stop(a):
         a.visible=False
         a.run = False
         a.distance = 0
-        pop.finished += 1
         a.score = a.speed
         return True
 
     elif a.vel.mag()<0.01 and a.acc.mag()<0.6:
         a.vel=Vec(0,0,0)
         a.run = False
-        pop.finished += 1
         a.distance = dist_hole
         a.score = a.distance + a.speed
         past_wall(a)
+        speedDif(a)
         return True
     
     elif abs(a.pos.x) > 3 or a.pos.y < -1 or a.pos.y > 7:
         a.run = False
-        pop.finished += 1
         a.distance = dist_hole
         a.score = dist_hole + a.speed + abs(a.vel) * 3
         a.vel=Vec(0,0,0)
@@ -149,6 +147,11 @@ def detect_Lwall(a):
     else:
         pass
 
+def speedDif(a):
+    hole = HOLE - a.pos
+
+    a.score += (abs(math.degrees(math.atan2(a.vel.y, a.vel.x)) - math.degrees(math.atan2(hole.y, hole.x))))/10
+
 def collision(a,wall_norm):
 
     a.pos-=a.vel*dt
@@ -163,8 +166,11 @@ def detect_walls(a):
     detect_Rwall(a)
     detect_Lwall(a) 
 
+count = 0
+
 def move(a,n):
     global run
+    global count
     for i in range(n):
         if run and a.run:
             a.acc=forces(a)/a.m
@@ -172,4 +178,6 @@ def move(a,n):
             a.pos+=a.vel*dt
             detect_walls(a)
             if (stop(a)):
+                pop.finished += 1
                 break
+                

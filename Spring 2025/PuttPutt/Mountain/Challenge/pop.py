@@ -31,11 +31,11 @@ class Family:
         self.standardDeviation = standardDeviation
         self.color = (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1))
         for i in range(self.size):
-            ball=Ball(random.uniform(lBound, hBound), random.uniform(0.5,8), (self.color), familyNum)
+            ball=Ball(random.uniform(lBound, hBound), random.uniform(7.436357168,7.436357168), (self.color), familyNum)
             self.familyMembers.append(ball)
         self.average = None
 
-populationSize, families = 200, 10
+populationSize, families = 400, 10
 population = []
 winners = []
 losers = []
@@ -44,6 +44,6 @@ final = []
 
 2.7
 
-for i in range(0,180,int(180/families)):
+for i in range(0,180,int(180/(families))):
     family = Family(populationSize/families,i,i+(180/families), 10, int(i/int(180/families)))
     population.append(family)

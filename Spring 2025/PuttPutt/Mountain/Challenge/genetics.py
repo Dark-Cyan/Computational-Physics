@@ -19,7 +19,7 @@ def lowestHighest(list):
 def next_gen():
     global standarddeviation
     global threshhold
-    if pop.finished>=pop.populationSize:
+    if pop.finished>= pop.populationSize:
         pop.finished = 0
         newPopulation = []
         # pop.population.clear()

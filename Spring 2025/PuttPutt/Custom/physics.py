@@ -18,13 +18,13 @@ HOLE=Vec(0,-0.8,0)
 HILLS=[] 
 HILL_R=0.4
 
-def odd_even_value(n):
-    return 0 if n % 2 == 0 else 0.5
+# def odd_even_value(n):
+#     return 0 if n % 2 == 0 else 0.5
 
-for i in range(-3,4,1):
-    for j in range(1,6,1):
-        HILL=Vec(i+odd_even_value(j),j+0.5,0)
-        HILLS.append(HILL)
+# for i in range(-3,4,1):
+#     for j in range(1,6,1):
+#         HILL=Vec(i+odd_even_value(j),j+0.5,0)
+#         HILLS.append(HILL)
 
 # Walls
 
@@ -119,24 +119,31 @@ def detect_wall(a):
 
     #GAME BOUNDS
     if a.pos.x >= 2.95 or a.pos.x <= -2.95:
-        print("HELP ME")
         a.bounce -= 10
         a.pos -= a.vel * dt
         a.vel.x *= -0.95
     if a.pos.y >= 6.95:
-        print("YAY ME")
         a.bounce -= 10
         a.pos -= a.vel * dt
         a.vel.y *= -0.95
     
     #LAUNCH WALL
     if (a.pos.y <= 5.3 and a.pos.y >= -1 and a.pos.x - a.r <= 2.6 and a.pos.x + a.r >= 2.55):
-        print("THE HUZZ")
         a.bounce -= 10
         a.pos -= a.vel * dt
         a.vel.x *= -0.95
 
-    #if (a.pos.x >= -2.9 and a.pos.x <= -0.2 and a.pos.y)
+    if (a.pos.x >= -2.9 and a.pos.x <= -0.2 and a.pos.y <= -0.4 + ((a.pos.x + 2.9) * -0.5/2.7)):
+        #NEED TO CHANGE BOUNCE
+        a.bounce -= 10
+        a.pos -= a.vel * dt
+        a.vel.y *= -0.95
+
+    if (a.pos.x <= 2.5 and a.pos.x >= -0.2 and a.pos.y <= -0.4 + ((a.pos.x - 2.5) * 0.5/2.7)):
+        #NEED TO CHANGE BOUNCE
+        a.bounce -= 10
+        a.pos -= a.vel * dt
+        a.vel.y *= -0.95
 
 
 def edge(a,edge):

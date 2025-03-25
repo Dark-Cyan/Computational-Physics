@@ -16,4 +16,4 @@ class Ball:
         self.visible=True
         self.bounce=0
 
-ball = Ball(Vec(-20,6,0))
+ball = Ball(Vec(-6,6,0))
