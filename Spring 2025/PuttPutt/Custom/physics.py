@@ -73,7 +73,7 @@ spray=0
 cor,cor_range=0.7,0
 
 t=0
-dt=0.0006
+dt=0.001
 
 # Forces
 
@@ -104,7 +104,7 @@ def hill_slope(a):
     return hill_force
         
 def pinball_slope(a):
-    return Vec(0,-0.05,0)
+    return Vec(0,-0.1,0)
 
 def forces(a):
     
@@ -118,11 +118,11 @@ def detect_wall(a):
     #if d < WALL_length + 0.05:
 
     #GAME BOUNDS
-    if a.pos.x >= 2.95 or a.pos.x <= -2.95:
+    if a.pos.x >= 2.90 or a.pos.x <= -2.90:
         a.bounce -= 10
         a.pos -= a.vel * dt
         a.vel.x *= -0.95
-    if a.pos.y >= 6.95:
+    if a.pos.y >= 6.90:
         a.bounce -= 10
         a.pos -= a.vel * dt
         a.vel.y *= -0.95
@@ -131,20 +131,43 @@ def detect_wall(a):
     if (a.pos.y <= 5.3 and a.pos.y >= -1 and a.pos.x - a.r <= 2.6 and a.pos.x + a.r >= 2.55):
         a.bounce -= 10
         a.pos -= a.vel * dt
-        a.vel.x *= -0.95
+        a.vel.x *= -1.00
 
+    #Bottom Left Triangle
     if (a.pos.x >= -2.9 and a.pos.x <= -0.2 and a.pos.y <= -0.4 + ((a.pos.x + 2.9) * -0.5/2.7)):
         #NEED TO CHANGE BOUNCE
         a.bounce -= 10
         a.pos -= a.vel * dt
         a.vel.y *= -0.95
 
+    #Bottom Right Triangle
     if (a.pos.x <= 2.5 and a.pos.x >= -0.2 and a.pos.y <= -0.4 + ((a.pos.x - 2.5) * 0.5/2.7)):
         #NEED TO CHANGE BOUNCE
         a.bounce -= 10
         a.pos -= a.vel * dt
         a.vel.y *= -0.95
 
+    #Left Guide
+    if (a.pos.x >= -2.4 and a.pos.x <= -1.2 and a.pos.y <= 0.3 + ((a.pos.x + 2.4) * -0.3/1.2)):
+        hello = 1
+
+    #Left Bumper
+    if (a.pos.x >= -2.1 and a.pos.x <= -1.2 and a.pos.y <= 1.3 + ((a.pos.x + 2.1) * -1/0.9) and a.pos.y >= 0.6 + ((a.pos.x + 2.1) * -0.3/0.9)):
+        #NEED TO CHANGE BOUNCE
+        a.bounce -= 10
+        a.pos -= a.vel * dt
+        a.vel.y *= -0.95
+    
+    #Right Bumper
+    if (a.pos.x >= 0.8 and a.pos.x <= 1.7 and a.pos.y <= 0.3 + ((a.pos.x - 0.8) * 1/0.9) and a.pos.y >= 0.3 + ((a.pos.x - 0.8) * 0.3/0.9)):
+        #NEED TO CHANGE BOUNCE
+        a.bounce -= 10
+        a.pos -= a.vel * dt
+        a.vel.y *= -0.95
+
+    #Center Circle
+    if (abs(a.pos - Vec(-0.2, 3, 0)) <= 0.5):
+        hi = 1
 
 def edge(a,edge):
     cir_norm=(a.pos-edge).norm()
