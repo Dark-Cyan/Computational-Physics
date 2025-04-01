@@ -1,5 +1,7 @@
 import pygame as pg
 from vectors import Vec
+import golfBall
+import physics as px
 import math
 
 # Global configuration
@@ -8,7 +10,13 @@ S = 100  # how many pixels per meter
 
 def scale(vec: Vec) -> tuple[int, int]:
     # Convert simulation coordinates to screen coordinates
-    return (int(S * vec.x) + 300, 700 - int(S * vec.y))
+    return (int(S * vec.x) + 250, 800 - int(S * vec.y))
+
+def scaleX(num: int) -> int:
+    return int(S * num) + 250
+
+def scaleY(num: int) -> int:
+    return 800 - int(S * num)
 
 def setup(width: int, height: int) -> None:
     global screen, clock, texture  # Make texture global
@@ -19,14 +27,31 @@ def setup(width: int, height: int) -> None:
 
  
 def background() -> None:
-    screen.fill((60, 160, 80))
+    #Colors
+    magenta = (139, 0, 139)
+
+    screen.fill((0, 0, 0))
+
+    #Background
+    pg.draw.circle(screen, magenta, scale(Vec(0.25, 5.25, 0)), S * 2.65)
+    pg.draw.rect(screen, magenta, (scaleX(-2.4), scaleY(5.25), 530, 515))
+    pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(-2.4, 0.6, 0)), scale(Vec(-2.4, 0.1, 0)), scale(Vec(0, 0.1, 0))])
+    pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(2.4, 0.6, 0)), scale(Vec(2.4, 0.1, 0)), scale(Vec(0, 0.1, 0))])
+
+    #pg.draw.polygon(screen, (0, 0, 0), [(10, 740),(10,790),(280,790)]) #Bottom Left Triangle
+
+    #Current Bumper:
+    circleBumperPos = Vec(0, 4, 0)
+    circleBumperRad = 0.5
+    pg.draw.circle(screen, (0, 0, 0), scale(circleBumperPos), S * circleBumperRad)
+    
 
 
 def render() -> None:
     background()
-    # if pop.ball.visible==True:
-    #     pg.draw.circle(screen, (255, 255, 255), scale(pop.ball.newPos), int(S * pop.ball.r))
-    # clock.tick(60)
+    if golfBall.ball.visible==True:
+        pg.draw.circle(screen, (255, 255, 255), scale(golfBall.ball.position), int(S * golfBall.ball.radius))
+    clock.tick(60)
     pg.display.flip()
 
 def check_interactions() -> None:
@@ -36,5 +61,4 @@ def check_interactions() -> None:
             VIEW = False
         elif event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE:
-                #px.run = True
-                hello = 1
+                px.run = True

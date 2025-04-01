@@ -3,7 +3,7 @@ from vectors import Vec
 class Ball:
     def __init__(self, velocity):
         #Positional Variables
-        self.position = Vec(2.75, 0.25, 0)
+        self.position = Vec(2.75, 1.5, 0)
         self.velocity = velocity
         self.initialVelocity = velocity
         self.acceleration = Vec(0, 0, 0)
@@ -14,4 +14,6 @@ class Ball:
 
         #Graphical Variables
         self.color = (255, 255, 255)
-        self.visible
+        self.visible = True
+
+ball = Ball(Vec(0,6,0))
