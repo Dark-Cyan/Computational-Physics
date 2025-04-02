@@ -38,19 +38,26 @@ def background() -> None:
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(-2.4, 0.6, 0)), scale(Vec(-2.4, 0.1, 0)), scale(Vec(0, 0.1, 0))])
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(2.4, 0.6, 0)), scale(Vec(2.4, 0.1, 0)), scale(Vec(0, 0.1, 0))])
 
+    pg.draw.circle(screen, (0, 0, 0), scale(Vec(0, 0.15, 0)), int(S * 0.054))
+
+    pg.draw.rect(screen, (0, 0, 0), (scaleX(2.4), scaleY(6), 10, 600))
+
     #pg.draw.polygon(screen, (0, 0, 0), [(10, 740),(10,790),(280,790)]) #Bottom Left Triangle
 
     #Current Bumper:
     circleBumperPos = Vec(0, 4, 0)
     circleBumperRad = 0.5
     pg.draw.circle(screen, (0, 0, 0), scale(circleBumperPos), S * circleBumperRad)
+
+    pg.draw.rect(screen, (0, 0, 0), (scaleX(-2.0), scaleY(2.3), 10, 100))
+    pg.draw.rect(screen, (0, 0, 0), (scaleX(1.9), scaleY(2.3), 10, 100))
     
 
 
 def render() -> None:
     background()
     if golfBall.ball.visible==True:
-        pg.draw.circle(screen, (255, 255, 255), scale(golfBall.ball.position), int(S * golfBall.ball.radius))
+        pg.draw.circle(screen, golfBall.ball.color, scale(golfBall.ball.position), int(S * golfBall.ball.radius))
     clock.tick(60)
     pg.display.flip()
 

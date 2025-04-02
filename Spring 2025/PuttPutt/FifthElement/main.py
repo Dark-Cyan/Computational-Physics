@@ -11,4 +11,4 @@ while gx.VIEW:
     gx.render()
     gx.check_interactions()
     px.move(golfBall.ball,3)  
-    #print(math.degrees(math.atan2(golfBall.ball.velocity.y, golfBall.ball.velocity.x)))
+    #print(abs(golfBall.ball.velocity))
