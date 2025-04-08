@@ -10,5 +10,6 @@ while gx.VIEW:
 
     gx.render()
     gx.check_interactions()
-    px.move(golfBall.ball,3)  
-    # print(abs(golfBall.ball.velocity))
+    for i in golfBall.family:
+        px.move(i,3)  
+    # print(abs(golfBall.ball.velocity)) 

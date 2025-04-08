@@ -16,4 +16,8 @@ class Ball:
         self.color = (255, 255, 255)
         self.visible = True
 
-ball = Ball(Vec(0.3,7.5,0))
+ball1 = Ball(Vec(0.3,7.5,0))
+ball2 = Ball(Vec(0.0,8.0,0))
+ball3 = Ball(Vec(-0.3,6.0,0))
+ball4 = Ball(Vec(0.0,8.5,0))
+family = [ball1, ball2, ball3, ball4]

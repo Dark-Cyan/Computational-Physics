@@ -8,7 +8,6 @@ import time
 # Global configuration
 VIEW = True
 S = 100  # how many pixels per meter
-startTime = time.time()
 
 def scale(vec: Vec) -> tuple[int, int]:
     # Convert simulation coordinates to screen coordinates
@@ -67,7 +66,7 @@ def background() -> None:
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(2.4, 3.5, 0)), scale(Vec(1.4, 4, 0)), scale(Vec(1.5, 4, 0)), scale(Vec(2.4, 3.6, 0))])
 
     lflipperCenter = Vec(-0.9, 1.125, 0)
-    lflipperAngle = (time.time()-startTime) % math.pi/4
+    lflipperAngle = (time.time()-px.startTime) % math.pi/4
     ltopCornerFlip = Vec(-0.95, 1.175, 0)
     lactTLF = Vec((ltopCornerFlip - lflipperCenter).x * math.cos(lflipperAngle) - (ltopCornerFlip - lflipperCenter).y * math.sin(lflipperAngle), (ltopCornerFlip - lflipperCenter).x * math.sin(lflipperAngle) + (ltopCornerFlip - lflipperCenter).y * math.cos(lflipperAngle), 0) + lflipperCenter
     lbottomCornerFlip = Vec(-0.95, 1.075, 0)
@@ -79,7 +78,7 @@ def background() -> None:
     pg.draw.polygon(screen, (0, 0, 0), [scale(lactTLF), scale(lactBLF), scale(lactBRF), scale(lactTRF)])
 
     rflipperCenter = Vec(0.9, 1.125, 0)
-    rflipperAngle = -(time.time()-startTime + math.pi/2) % math.pi/4 - math.pi/4
+    rflipperAngle = -(time.time()-px.startTime + math.pi/2) % math.pi/4 - math.pi/4
     rtopCornerFlip = Vec(0.95, 1.175, 0)
     ractTLF = Vec((rtopCornerFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rtopCornerFlip - rflipperCenter).y * math.sin(rflipperAngle), (rtopCornerFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rtopCornerFlip - rflipperCenter).y * math.cos(rflipperAngle), 0) + rflipperCenter
     rbottomCornerFlip = Vec(0.95, 1.075, 0)
@@ -94,8 +93,9 @@ def background() -> None:
 
 def render() -> None:
     background()
-    if golfBall.ball.visible==True:
-        pg.draw.circle(screen, golfBall.ball.color, scale(golfBall.ball.position), int(S * golfBall.ball.radius))
+    for i in golfBall.family:
+        if i.visible==True:
+            pg.draw.circle(screen, i.color, scale(i.position), int(S * i.radius))
     clock.tick(60)
     pg.display.flip()
 
