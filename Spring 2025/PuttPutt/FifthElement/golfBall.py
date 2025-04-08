@@ -16,4 +16,4 @@ class Ball:
         self.color = (255, 255, 255)
         self.visible = True
 
-ball = Ball(Vec(0.1,7.4,0))
+ball = Ball(Vec(0.3,7.5,0))

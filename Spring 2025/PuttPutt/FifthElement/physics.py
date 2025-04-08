@@ -20,7 +20,8 @@ def forces(a):
 
 def friction(a):
     try: 
-        return -1*a.velocity.norm()*FRIC
+        #return -1*a.velocity.norm()*FRIC
+        return -1*Vec(0, a.velocity.y, 0).norm()*FRIC
     except ValueError:
         
         return Vec(0, 0, 0)
@@ -42,7 +43,6 @@ def collision(a):
         a.velocity = 5.00 * bounceDirection
     
     if abs(a.position - Vec(0.25, 5.25, 0)) > 2.65 - a.radius and a.position.y >= 5.25:
-        #NEED TO FIX
         bounceDirection = (Vec(0.25, 5.25, 0) - a.position).norm()
         a.velocity = a.velocity - 2 * (a.velocity.dot(bounceDirection)) * bounceDirection
 
@@ -57,13 +57,41 @@ def collision(a):
         a.position.y = 0.1 + 5/24 * a.position.x + a.radius
 
     if a.position.x >= 2.4 and a.position.x <= 2.5 and a.position.y <= 6 and a.position.y >= 0:
-        a.velocity.x *= -1
+        a.velocity.x *= -0.98
 
     if a.position.x >= -2.0 and a.position.x <= -1.9 and a.position.y <= 2.3 and a.position.y >= 1.3:
-        a.velocity.x *= -1
+        a.velocity.x *= -0.98
 
     if a.position.x >= 1.9 and a.position.x <= 2.0 and a.position.y <= 2.3 and a.position.y >= 1.3:
-        a.velocity.x *= -1
+        a.velocity.x *= -0.98
+
+    if a.position.x <= -1.0 and a.position.x >= -2.0 and a.position.y  - a.radius <= 1.4 - 5/24 - 5/24 * (a.position.x + 1.0) and a.position.y + a.radius >= 1.3 - 5/24 - 5/24 * (a.position.x + 1.0):
+        wallAngle = Vec(5,24,0).norm()
+        a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
+        #a.position.y = 0.1 - 5/24 * a.position.x + a.radius
+
+    if a.position.x >= 1.0 and a.position.x <= 2.0 and a.position.y  - a.radius <= 1.4 - 5/24 + 5/24 * (a.position.x - 1.0) and a.position.y  + a.radius >= 1.3 - 5/24 + 5/24 * (a.position.x - 1.0):
+        wallAngle = Vec(-5,24,0).norm()
+        a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
+        #a.position.y = 0.1 + 5/24 * a.position.x + a.radius
+
+    if a.position.x <= -1.4 and a.position.x >= -2.4 and a.position.y - a.radius <= 4 - 1/2 * (a.position.x + 1.4) and a.position.y  + a.radius >= 4:
+        wallAngle = Vec(1,2,0).norm()
+        a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
+    
+    if a.position.x >= 1.4 and a.position.x <= 2.4 and a.position.y - a.radius <= 4 + 1/2 * (a.position.x - 1.4) and a.position.y + a.radius >= 4:
+        wallAngle = Vec(-1,2,0).norm()
+        a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
+
+    if a.position.x <= -1.4 and a.position.x >= -2.4 and a.position.y - a.radius < 4 and a.position.y + a.radius >= 4 + 1/2 * (a.position.x + 1.4):
+        wallAngle = Vec(1,-2,0).norm()
+        a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
+
+    if a.position.x >= 1.4 and a.position.x <= 2.4 and a.position.y - a.radius < 4 and a.position.y + a.radius >= 4 - 1/2 * (a.position.x - 1.4):
+        wallAngle = Vec(-1,-2,0).norm()
+        a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
+
+    
 
 def stop(a):
 
