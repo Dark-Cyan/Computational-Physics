@@ -49,13 +49,14 @@ def background() -> None:
     circleBumperPos = Vec(0, 4, 0)
     circleBumperRad = 0.5
     pg.draw.circle(screen, (0, 0, 0), scale(circleBumperPos), S * circleBumperRad)
+    pg.draw.circle(screen, (255, 255, 255), scale(circleBumperPos), S * (circleBumperRad - 0.05))
 
     pg.draw.rect(screen, (0, 0, 0), (scaleX(-2.0), scaleY(2.3), 10, 100))
     pg.draw.rect(screen, (0, 0, 0), (scaleX(1.9), scaleY(2.3), 10, 100))
 
     #Guides
-    pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(-2.0, 1.3, 0)), scale(Vec(-1.0, 1.3 - 5/24, 0)), scale(Vec(-1.0, 1.4 - 5/24, 0)), scale(Vec(-2.0, 1.4, 0))])
-    pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(2.0, 1.3, 0)), scale(Vec(1.0, 1.3 - 5/24, 0)), scale(Vec(1.0, 1.4 - 5/24, 0)), scale(Vec(2.0, 1.4, 0))])
+    pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(-2.0, 1.3, 0)), scale(Vec(-0.9, 1.3 - 5/24, 0)), scale(Vec(-0.9, 1.4 - 5/24, 0)), scale(Vec(-2.0, 1.4, 0))])
+    pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(2.0, 1.3, 0)), scale(Vec(0.9, 1.3 - 5/24, 0)), scale(Vec(0.9, 1.4 - 5/24, 0)), scale(Vec(2.0, 1.4, 0))])
 
     #Top Triangle Sides
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(-2.4, 4.5, 0)), scale(Vec(-1.4, 4, 0)), scale(Vec(-1.5, 4, 0)), scale(Vec(-2.4, 4.4, 0))])
@@ -65,8 +66,8 @@ def background() -> None:
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(-2.4, 3.5, 0)), scale(Vec(-1.4, 4, 0)), scale(Vec(-1.5, 4, 0)), scale(Vec(-2.4, 3.6, 0))])
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(2.4, 3.5, 0)), scale(Vec(1.4, 4, 0)), scale(Vec(1.5, 4, 0)), scale(Vec(2.4, 3.6, 0))])
 
-    lflipperCenter = Vec(-0.9, 1.125, 0)
-    lflipperAngle = (time.time()-px.startTime) % math.pi/4
+    lflipperCenter = Vec(-0.95, 1.175, 0)#Vec(-0.9, 1.125, 0)
+    lflipperAngle = math.cos(px.timer) * math.pi/4
     ltopCornerFlip = Vec(-0.95, 1.175, 0)
     lactTLF = Vec((ltopCornerFlip - lflipperCenter).x * math.cos(lflipperAngle) - (ltopCornerFlip - lflipperCenter).y * math.sin(lflipperAngle), (ltopCornerFlip - lflipperCenter).x * math.sin(lflipperAngle) + (ltopCornerFlip - lflipperCenter).y * math.cos(lflipperAngle), 0) + lflipperCenter
     lbottomCornerFlip = Vec(-0.95, 1.075, 0)
@@ -75,10 +76,10 @@ def background() -> None:
     lactBRF = Vec((lbottomEdgeFlip - lflipperCenter).x * math.cos(lflipperAngle) - (lbottomEdgeFlip - lflipperCenter).y * math.sin(lflipperAngle), (lbottomEdgeFlip - lflipperCenter).x * math.sin(lflipperAngle) + (lbottomEdgeFlip - lflipperCenter).y * math.cos(lflipperAngle), 0) + lflipperCenter
     ltopEdgeFlip = Vec(-0.2, 1.175, 0)
     lactTRF = Vec((ltopEdgeFlip - lflipperCenter).x * math.cos(lflipperAngle) - (ltopEdgeFlip - lflipperCenter).y * math.sin(lflipperAngle), (ltopEdgeFlip - lflipperCenter).x * math.sin(lflipperAngle) + (ltopCornerFlip - ltopEdgeFlip).y * math.cos(lflipperAngle), 0) + lflipperCenter
-    pg.draw.polygon(screen, (0, 0, 0), [scale(lactTLF), scale(lactBLF), scale(lactBRF), scale(lactTRF)])
+    pg.draw.polygon(screen, (255, 174, 66), [scale(lactTLF), scale(lactBLF), scale(lactBRF), scale(lactTRF)])
 
-    rflipperCenter = Vec(0.9, 1.125, 0)
-    rflipperAngle = -(time.time()-px.startTime + math.pi/2) % math.pi/4 - math.pi/4
+    rflipperCenter = Vec(0.95, 1.175, 0) #Vec(0.9, 1.125, 0)
+    rflipperAngle = math.cos(px.timer) * math.pi/4
     rtopCornerFlip = Vec(0.95, 1.175, 0)
     ractTLF = Vec((rtopCornerFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rtopCornerFlip - rflipperCenter).y * math.sin(rflipperAngle), (rtopCornerFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rtopCornerFlip - rflipperCenter).y * math.cos(rflipperAngle), 0) + rflipperCenter
     rbottomCornerFlip = Vec(0.95, 1.075, 0)
@@ -87,13 +88,23 @@ def background() -> None:
     ractBRF = Vec((rbottomEdgeFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rbottomEdgeFlip - rflipperCenter).y * math.sin(rflipperAngle), (rbottomEdgeFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rbottomEdgeFlip - rflipperCenter).y * math.cos(rflipperAngle), 0) + rflipperCenter
     rtopEdgeFlip = Vec(0.2, 1.175, 0)
     ractTRF = Vec((rtopEdgeFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rtopEdgeFlip - rflipperCenter).y * math.sin(rflipperAngle), (rtopEdgeFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rtopCornerFlip - rtopEdgeFlip).y * math.cos(rflipperAngle), 0) + rflipperCenter
-    pg.draw.polygon(screen, (0, 0, 0), [scale(ractTLF), scale(ractBLF), scale(ractBRF), scale(ractTRF)])
-    
+    pg.draw.polygon(screen, (255, 174, 66), [scale(ractTLF), scale(ractBLF), scale(ractBRF), scale(ractTRF)])
 
+    miniBump1 = Vec(-0.35, 5.65, 0)
+    miniBump2 = Vec(0, 6.35, 0)
+    miniBump3 = Vec(0.35, 6, 0)
+    miniBumpRad = 0.15
+    pg.draw.circle(screen, (0, 0, 0), scale(miniBump1), miniBumpRad * S)
+    pg.draw.circle(screen, (0, 0, 0), scale(miniBump2), miniBumpRad * S)
+    pg.draw.circle(screen, (0, 0, 0), scale(miniBump3), miniBumpRad * S)
+    pg.draw.circle(screen, (255, 255, 0), scale(miniBump1), (miniBumpRad - 0.05) * S)
+    pg.draw.circle(screen, (0, 0, 255), scale(miniBump2), (miniBumpRad - 0.05) * S)
+    pg.draw.circle(screen, (255, 0, 0), scale(miniBump3), (miniBumpRad - 0.05) * S)
+    
 
 def render() -> None:
     background()
-    for i in golfBall.family:
+    for i in golfBall.population:
         if i.visible==True:
             pg.draw.circle(screen, i.color, scale(i.position), int(S * i.radius))
     clock.tick(60)
@@ -107,3 +118,4 @@ def check_interactions() -> None:
         elif event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE:
                 px.run = True
+                px.timer = 0

@@ -1,7 +1,8 @@
 from vectors import Vec
+import random
 
 class Ball:
-    def __init__(self, velocity):
+    def __init__(self, velocity, color):
         #Positional Variables
         self.position = Vec(2.75, 0.25, 0)
         self.velocity = velocity
@@ -13,11 +14,21 @@ class Ball:
         self.mass = 0.045
 
         #Graphical Variables
-        self.color = (255, 255, 255)
+        self.color = color
         self.visible = True
 
-ball1 = Ball(Vec(0.3,7.5,0))
-ball2 = Ball(Vec(0.0,8.0,0))
-ball3 = Ball(Vec(-0.3,6.0,0))
-ball4 = Ball(Vec(0.0,8.5,0))
-family = [ball1, ball2, ball3, ball4]
+        self.run = True
+        self.score=0
+        population.append(self)
+
+population = []
+winners = []
+losers = []
+final = []
+populationSize = 1 #100
+
+# for i in range(populationSize):
+#     ball=Ball(Vec(random.uniform(-3,3),random.uniform(5,15),0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
+
+ball = Ball(Vec(3.909517465750703, 14.888680327361048, 0.0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
+ 
