@@ -137,6 +137,7 @@ def collision(a):
         wallAngle = Vec(lactTRF.x - lactTLF.x,-(lactTRF.y - lactTLF.y),0).norm()
         a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
         a.position += a.velocity * dt
+        print("HUZZ")
 
     rflipperCenter = Vec(0.95, 1.175, 0) #Vec(0.9, 1.125, 0)
     rflipperAngle = math.cos(timer) * math.pi/4
@@ -148,6 +149,7 @@ def collision(a):
         wallAngle = Vec(ractTRF.x - ractTLF.x,-(ractTRF.y - ractTLF.y),0).norm()
         a.velocity = a.velocity - 2 * (a.velocity.dot(wallAngle)) * wallAngle
         a.position += a.velocity * dt
+        print("CHUZZ")
     
     miniBump1 = Vec(-0.35, 5.65, 0)
     miniBump2 = Vec(0, 6.35, 0)

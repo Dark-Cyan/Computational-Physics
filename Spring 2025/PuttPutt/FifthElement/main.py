@@ -14,5 +14,5 @@ while gx.VIEW:
     for i in golfBall.population:
         px.move(i, 10)#px.move(i,50)
         gen.next_gen() 
-    px.timer += px.dt * 50 * 250/200
+    px.timer += px.dt * 50 * 250/200 
          
