@@ -11,8 +11,10 @@ while gx.VIEW:
 
     gx.render()
     gx.check_interactions()
+    moves = 20
     for i in golfBall.population:
-        px.move(i, 10)#px.move(i,50)
+        px.move(i, moves)
         gen.next_gen() 
-    px.timer += px.dt * 50 * 250/200 
+    px.timer += px.dt * moves * 100 / 20
          
+#15500 Vec(0.11923726308062293, 20.815404960917864, 0.0)

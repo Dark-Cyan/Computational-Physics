@@ -66,27 +66,27 @@ def background() -> None:
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(-2.4, 3.5, 0)), scale(Vec(-1.4, 4, 0)), scale(Vec(-1.5, 4, 0)), scale(Vec(-2.4, 3.6, 0))])
     pg.draw.polygon(screen, (0, 0, 0), [scale(Vec(2.4, 3.5, 0)), scale(Vec(1.4, 4, 0)), scale(Vec(1.5, 4, 0)), scale(Vec(2.4, 3.6, 0))])
 
-    lflipperCenter = Vec(-0.95, 1.175, 0)#Vec(-0.9, 1.125, 0)
+    lflipperCenter = Vec(-0.9, 1.4 - 5/24, 0)#Vec(-0.9, 1.125, 0)
     lflipperAngle = math.cos(px.timer) * math.pi/4
-    ltopCornerFlip = Vec(-0.95, 1.175, 0)
+    ltopCornerFlip = Vec(-0.9, 1.4 - 5/24, 0)
     lactTLF = Vec((ltopCornerFlip - lflipperCenter).x * math.cos(lflipperAngle) - (ltopCornerFlip - lflipperCenter).y * math.sin(lflipperAngle), (ltopCornerFlip - lflipperCenter).x * math.sin(lflipperAngle) + (ltopCornerFlip - lflipperCenter).y * math.cos(lflipperAngle), 0) + lflipperCenter
-    lbottomCornerFlip = Vec(-0.95, 1.075, 0)
+    lbottomCornerFlip = Vec(-0.9, 1.4 - 5/24 - 0.1, 0)
     lactBLF = lactTLF - Vec(0, 0.1, 0)#Vec((lbottomCornerFlip - lflipperCenter).x * math.cos(lflipperAngle) - (lbottomCornerFlip - lflipperCenter).y * math.sin(lflipperAngle), (lbottomCornerFlip - lflipperCenter).x * math.sin(lflipperAngle) + (lbottomCornerFlip - lflipperCenter).y * math.cos(lflipperAngle), 0) + lflipperCenter
-    ltopEdgeFlip = Vec(-0.2, 1.175, 0)
+    ltopEdgeFlip = Vec(-0.2, 251/240, 0)
     lactTRF = Vec((ltopEdgeFlip - lflipperCenter).x * math.cos(lflipperAngle) - (ltopEdgeFlip - lflipperCenter).y * math.sin(lflipperAngle), (ltopEdgeFlip - lflipperCenter).x * math.sin(lflipperAngle) + (ltopCornerFlip - ltopEdgeFlip).y * math.cos(lflipperAngle), 0) + lflipperCenter
     lbottomEdgeFlip = Vec(-0.2, 1.075, 0)
     lactBRF = lactTRF - Vec(0, 0.1, 0)#Vec((lbottomEdgeFlip - lflipperCenter).x * math.cos(lflipperAngle) - (lbottomEdgeFlip - lflipperCenter).y * math.sin(lflipperAngle), (lbottomEdgeFlip - lflipperCenter).x * math.sin(lflipperAngle) + (lbottomEdgeFlip - lflipperCenter).y * math.cos(lflipperAngle), 0) + lflipperCenter
     pg.draw.polygon(screen, (255, 174, 66), [scale(lactTLF), scale(lactBLF), scale(lactBRF), scale(lactTRF)])
 
-    rflipperCenter = Vec(0.95, 1.175, 0) #Vec(0.9, 1.125, 0)
+    rflipperCenter = Vec(0.9, 1.4 - 5/24, 0) #Vec(0.9, 1.125, 0)
     rflipperAngle = math.cos(px.timer) * math.pi/4
-    rtopCornerFlip = Vec(0.95, 1.175, 0)
+    rtopCornerFlip = Vec(0.9, 1.4 - 5/24, 0)
     ractTLF = Vec((rtopCornerFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rtopCornerFlip - rflipperCenter).y * math.sin(rflipperAngle), (rtopCornerFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rtopCornerFlip - rflipperCenter).y * math.cos(rflipperAngle), 0) + rflipperCenter
-    rbottomCornerFlip = Vec(0.95, 1.075, 0)
+    rbottomCornerFlip = Vec(0.9, 1.4 - 5/24, 0)
     ractBLF = ractTLF - Vec(0, 0.1, 0)#Vec((rbottomCornerFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rbottomCornerFlip - rflipperCenter).y * math.sin(rflipperAngle), (rbottomCornerFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rbottomCornerFlip - rflipperCenter).y * math.cos(rflipperAngle), 0) + rflipperCenter
-    rtopEdgeFlip = Vec(0.2, 1.175, 0)
+    rtopEdgeFlip = Vec(0.2, 251/240, 0)
     ractTRF = Vec((rtopEdgeFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rtopEdgeFlip - rflipperCenter).y * math.sin(rflipperAngle), (rtopEdgeFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rtopCornerFlip - rtopEdgeFlip).y * math.cos(rflipperAngle), 0) + rflipperCenter
-    rbottomEdgeFlip = Vec(0.2, 1.075, 0)
+    rbottomEdgeFlip = Vec(-0.2, 251/240 - 0.1, 0)
     ractBRF = ractTRF - Vec(0, 0.1, 0)#Vec((rbottomEdgeFlip - rflipperCenter).x * math.cos(rflipperAngle) - (rbottomEdgeFlip - rflipperCenter).y * math.sin(rflipperAngle), (rbottomEdgeFlip - rflipperCenter).x * math.sin(rflipperAngle) + (rbottomEdgeFlip - rflipperCenter).y * math.cos(rflipperAngle), 0) + rflipperCenter
     pg.draw.polygon(screen, (255, 174, 66), [scale(ractTLF), scale(ractBLF), scale(ractBRF), scale(ractTRF)])
 

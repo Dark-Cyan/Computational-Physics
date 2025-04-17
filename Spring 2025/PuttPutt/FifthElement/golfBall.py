@@ -25,10 +25,10 @@ population = []
 winners = []
 losers = []
 final = []
-populationSize = 1 #200
+populationSize = 1
 
 # for i in range(populationSize):
 #     ball=Ball(Vec(random.uniform(-3,3),random.uniform(5,15),0), (random.randrange(0,255,1), random.randrange(0,255,1), random.randrange(0,255,1)))
 
-ball = Ball(Vec(3.909517465750703, 14.888680327361048, 0.0), (255, 255, 255))
+ball = Ball(Vec(0.11923726308062293, 20.815404960917864, 0.0), (255, 255, 255))
  
