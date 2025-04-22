@@ -1,11 +1,14 @@
 import pygame as pg
 from vectors import Vec
 import math
-
-from organism import*
+from organism import organisms
 
 view = True
 scaleCoefficient = 100  # how many pixels per meter
+#cameraState = "interactive"
+cameraState = "following"
+
+trueCenter = Vec(0,0,0)
 
 def scale(vec: Vec) -> tuple[int, int]:
     # Convert simulation coordinates to screen coordinates
@@ -31,15 +34,13 @@ def background() -> None:
 
     screen.fill(grassColor)
 
-    organismPos = Vec(0,0,0)
-    organismSize = 0.5
-    pg.draw.circle(screen, (0, 0, 0), scale(organismPos), organismSize * scaleCoefficient)
-
 def render() -> None:
     background()
-    # for i in Organism.organisms:
-    #     if i.visible==True:
-    #         pg.draw.circle(screen, i.color, scale(i.position), int(S * i.radius))
+    for i in organisms:
+        pg.draw.circle(screen, i.color, scale(i.position), int(scaleCoefficient * i.size))
+    #if cameraState == "following":
+        #dimensions = 
+        #pg.draw.rect(screen, (255,255,255), (, scaleY(5.25), screen.get_width() * 0.1 * scaleCoefficient), screen.get_height() * 0.3 * scaleCoefficient)
     clock.tick(60)
     pg.display.flip()
 

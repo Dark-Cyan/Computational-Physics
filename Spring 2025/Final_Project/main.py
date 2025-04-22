@@ -6,4 +6,4 @@ gx.background()
 while gx.view:
 
     gx.render()
-    gx.check_interactions()
+    gx.check_interactions() 
