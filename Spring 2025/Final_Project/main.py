@@ -8,6 +8,6 @@ while gx.view:
     moves = 20
     for i in organisms:
         i.update()
-        print(i.position )
+        #print(i.position )
     gx.render()
     gx.check_interactions() 

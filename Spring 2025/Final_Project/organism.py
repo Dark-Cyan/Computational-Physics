@@ -17,7 +17,8 @@ class Organism:
         dt = 0.1
         if self.state == "satisfied":
             if abs(self.newPosition - self.position) < 0.01:
-                self.newPosition = self.position + Vec(random.randrange(-self.radius, self.radius),random.randrange(-self.radius, self.radius),0)
+                
+                self.newPosition = self.position + Vec(random.randrange(-self.radius, self.radius,1),random.randrange(-self.radius, self.radius,1),0)
             else:
                 self.position += (self.newPosition - self.position).norm() * self.speed * dt
 
