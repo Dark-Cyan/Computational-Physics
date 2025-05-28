@@ -13,7 +13,7 @@ class Food:
 
     def spawnFruit(num):
         for i in range(num):
-            newFood = Food(Vec(random.uniform(-5.0, 5.0), random.uniform(-5.0, 5.0), 0), random.uniform(0.1,1))
+            newFood = Food(Vec(random.uniform(-5.0, 5.0), random.uniform(-5.0, 5.0), 0), 10)
 
 food1 = Food(Vec(-3,3,0), 0.6)
 food2 = Food(Vec(3,-3,0), 0.7)

@@ -25,7 +25,7 @@ def setup(width: int, height: int) -> None:
     global screen, clock, texture  # Make texture global
     pg.init()
     screen = pg.display.set_mode((width, height))
-    pg.display.set_caption("Chaos")
+    pg.display.set_caption("Natural Selection")
     clock = pg.time.Clock()
 
  

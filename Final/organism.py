@@ -42,7 +42,7 @@ class Organism:
 
         # Survival Needs
         self.alert = 0.3 - self.vision/500
-        self.max = 0.5 + 0.5 * self.numBodySegments
+        self.max = 1.0 + math.log10(self.numBodySegments) * 2
         self.hunger = 1.0
         self.thirst = 1.0
         self.timer = 0
@@ -96,13 +96,13 @@ class Organism:
                     pond = i
             if pond:
                 self.nextPos = pond.pos
-        elif self.timer >= 1.0:
+        elif self.timer >= 32.0 / (self.speed * 2):
             minDist = self.vision
             mate = None
             for i in organisms:
                 if self == i:
                     continue
-                elif abs(i.pos - self.pos) <= minDist and self.male != i.male and i.timer >= 1.0:
+                elif abs(i.pos - self.pos) <= minDist and self.male != i.male and i.timer >= 32.0 / (i.speed * 2):
                     minDist = abs(i.pos - self.pos)
                     mate = i
             if mate:
@@ -131,7 +131,7 @@ class Organism:
         for i in organisms:
             if self == i:
                 continue
-            elif abs(i.pos - self.pos) - i.size <= minDist and self.male != i.male and self.timer >= 1.0 and i.timer >= 1.0:
+            elif abs(i.pos - self.pos) - i.size <= minDist and self.male != i.male and self.timer >= 32.0 / (self.speed * 2) and i.timer >= 32.0 / (i.speed * 2):
                 minDist = abs(i.pos - self.pos)
                 mate = i
         if mate:

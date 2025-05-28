@@ -7,19 +7,21 @@ import os
 import matplotlib.pyplot as plt
 
 count = 0
-foodLoops = 500
-foodNum = 10
+foodLoops = 1000
+foodNum = 8
 
 gx.setup(1000,1000)
 gx.background()
+Food.spawnFruit(foodNum)
+Food.spawnFruit(foodNum)
 
 while gx.view:
     moves = 20
     if px.run:
         for i in organisms:
             px.move(i, moves)
-        count += 1
-        if count == foodLoops:
+        count += 1 * moves / 20
+        if count >= foodLoops:
             Food.spawnFruit(foodNum)
             count = 0
     gx.render()

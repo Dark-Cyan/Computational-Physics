@@ -29,9 +29,9 @@ def move(a,n):
         organism.organisms.remove(a)
         organism.speeds.remove(a.speed)
         organism.visions.remove(a.vision)
+        organism.totalBodySegments.remove(a.numBodySegments)
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Population:", len(organism.organisms))
         print("Average Speed:", sum(organism.speeds)/len(organism.speeds))
         print("Average Vision:", sum(organism.visions)/len(organism.visions))
         print("Average Body Segments", sum(organism.totalBodySegments)/len(organism.totalBodySegments))
-    # a.timer += dt
